@@ -2,7 +2,9 @@ import { PostsWithUser } from "@/types";
 import { db } from "@/lib/db";
 
 export async function getAllPosts(): Promise<PostsWithUser[]> {
+    /* simulating loading */
     await new Promise(res => setTimeout(res, 2500));
+
     return db.post.findMany({
         include: {
             user: {
@@ -31,6 +33,7 @@ export async function getPostsBySearchQuery(query: string): Promise<PostsWithUse
             OR: [
                 { title: { contains: query } },
                 { content: { contains: query } },
+                { category: { contains: query } },
             ]
         },
         include: {

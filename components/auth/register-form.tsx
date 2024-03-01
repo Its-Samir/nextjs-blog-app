@@ -32,11 +32,8 @@ export default function RegisterForm() {
 
         startTransition(() => {
             register(values).then(data => {
-                if (data.error) {
+                if (data && data.error) {
                     setStatus({ message: data.error, success: false });
-
-                } else if (data.success) {
-                    setStatus({ message: data.success, success: true });
                 }
 
             }).catch(err => {

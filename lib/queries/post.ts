@@ -43,3 +43,33 @@ export async function getPostsBySearchQuery(query: string): Promise<PostsWithUse
         }
     });
 }
+
+export async function getTopPost(): Promise<PostsWithUser[]> {
+    return db.post.findMany({
+        orderBy: {
+            comments: {
+                _count: "desc"
+            }
+        },
+        include: {
+            user: {
+                select: { username: true, image: true }
+            }
+        },
+        take: 1,
+    });
+}
+
+export async function getRecentPosts(): Promise<PostsWithUser[]> {
+    return db.post.findMany({
+        orderBy: {
+            createdAt: "desc"
+        },
+        include: {
+            user: {
+                select: { username: true, image: true }
+            }
+        },
+        take: 6,
+    });
+}

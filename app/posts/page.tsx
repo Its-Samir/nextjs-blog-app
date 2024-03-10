@@ -13,21 +13,21 @@ interface PostsPageProp {
 }
 
 async function Posts({ searchParams }: PostsPageProp) {
-    let posts: PostsWithUser[] = [];
+    let getPosts: () => Promise<PostsWithUser[]>;
 
     if (searchParams.category) {
-        posts = await getPostsByCategory(searchParams.category);
+        getPosts = () => getPostsByCategory(searchParams.category);
     }
 
     else if (searchParams.search) {
-        posts = await getPostsBySearchQuery(searchParams.search);
+        getPosts = () => getPostsBySearchQuery(searchParams.search);
     }
 
     else {
-        posts = await getAllPosts();
+        getPosts = () => getAllPosts();
     }
 
-    return posts.length > 0 ? <PostsList posts={posts} /> : <p>No post found</p>
+    return <PostsList getPosts={getPosts} />
 }
 
 export default async function PostsPage({ searchParams }: PostsPageProp) {

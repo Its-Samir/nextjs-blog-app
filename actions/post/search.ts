@@ -11,7 +11,7 @@ export async function searchPost(prevState: SearchPostFormState, formData: FormD
 
     if (typeof query !== "string") {
         return {
-            error: "No query found",
+            error: "Invalid query",
         };
     }
 

@@ -21,10 +21,11 @@ export default function CategoryTabs() {
     }
 
     return (
-        <div className="flex items-center flex-wrap p-2 rounded-full justify-center gap-3">
+        <div className="flex items-center flex-wrap p-2 rounded-full justify-center md:justify-normal gap-3">
             {categories.map(category => (
                 <Button
                     key={category.name}
+                    size={"sm"}
                     variant={`${categoryParam === category.name.toLowerCase() ? "default" : "outline"}`}
                     className="rounded-full px-5"
                     onClick={() => handleClick(category.name.toLowerCase())}

@@ -6,9 +6,7 @@ import RecentPostsList from "@/components/post/recent-posts-list";
 import PostsList from "@/components/post/posts-list";
 import { getAllPosts } from "@/lib/queries/post";
 
-export default async function Home() {
-    const posts = await getAllPosts();
-
+export default function Home() {
     return (
         <>
             <Header />
@@ -18,8 +16,8 @@ export default async function Home() {
             <TopPost />
 
             <RecentPostsList />
-            <h1 className="text-2xl text-slate-600 my-4">Popular</h1>
-            <PostsList posts={posts} />
+
+            <PostsList getPosts={getAllPosts} />
         </>
     )
 }

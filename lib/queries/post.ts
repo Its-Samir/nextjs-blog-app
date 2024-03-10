@@ -2,9 +2,6 @@ import { PostsWithUser } from "@/types";
 import { db } from "@/lib/db";
 
 export async function getAllPosts(): Promise<PostsWithUser[]> {
-    /* simulating loading */
-    await new Promise(res => setTimeout(res, 2500));
-
     return db.post.findMany({
         include: {
             user: {

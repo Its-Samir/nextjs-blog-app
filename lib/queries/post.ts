@@ -1,11 +1,17 @@
 import { PostsWithUser } from "@/types";
 import { db } from "@/lib/db";
+import { type Post } from "@prisma/client";
 
 export async function getAllPosts(): Promise<PostsWithUser[]> {
     return db.post.findMany({
         include: {
             user: {
                 select: { username: true, image: true }
+            }
+        },
+        orderBy: {
+            comments: {
+                _count: "desc",
             }
         }
     });
@@ -68,5 +74,29 @@ export async function getRecentPosts(): Promise<PostsWithUser[]> {
             }
         },
         take: 6,
+    });
+}
+
+export async function getTrendingPosts(): Promise<PostsWithUser[]> {
+    return db.post.findMany({
+        orderBy: {
+            likes: "desc"
+        },
+        include: {
+            user: {
+                select: { username: true, image: true }
+            }
+        },
+        take: 3,
+    });
+}
+
+export async function getRelatedPosts(currPostId: string, category: string): Promise<Post[]> {
+    return db.post.findMany({
+        where: {
+            category,
+            NOT: [{ id: currPostId }]
+        },
+        take: 3,
     });
 }

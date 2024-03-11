@@ -1,7 +1,7 @@
 import { PostsWithUser } from "@/types";
 import Post from "./post";
-import RelatedPost from "./sidebar-post";
 import RightBar from "./right-bar";
+import { getTrendingPosts } from "@/lib/queries/post";
 
 interface PostsListProps {
     getPosts: () => Promise<PostsWithUser[]>
@@ -12,13 +12,13 @@ export default async function PostsList({ getPosts }: PostsListProps) {
 
     return (
         <div className="flex md:flex-wrap-reverse mt-4">
-            <div className="flex flex-[3] md:flex-auto flex-wrap gap-2">
+            <div className="flex flex-[3] md:flex-auto flex-wrap">
                 {posts.length === 0 ? <p>No post found</p> : null}
                 {posts.map((post) => (
                     <Post key={post.id} {...post} />
                 ))}
             </div>
-            <RightBar heading="Trending" />
+            <RightBar getPosts={getTrendingPosts} heading="Trending" />
         </div>
     );
 }

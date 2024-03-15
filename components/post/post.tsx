@@ -36,7 +36,9 @@ export default function Post({ title, content, image, category, readingTime, use
                 </CardTitle>
                 <CardContent>
                     <CardDescription className="sm:text-xs sm:hidden">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, aperiam!
+                        <Link href={`/posts/${slug}`}>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, aperiam!
+                        </Link>
                     </CardDescription>
                 </CardContent>
                 <CardFooter className="p-0 gap-2 text-slate-500 text-sm sm:text-xs">

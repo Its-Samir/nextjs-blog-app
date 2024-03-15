@@ -5,8 +5,11 @@ import SearchBar from "@/components/post/search-bar";
 import RecentPostsList from "@/components/post/recent-posts-list";
 import PostsList from "@/components/post/posts-list";
 import { getAllPosts } from "@/lib/queries/post";
+import { Button } from "@/components/ui/button";
+import { Forward } from "lucide-react";
+import Link from "next/link";
 
-export default function Home() {
+export default function Home({ searchParams: { page } }: { searchParams: { page: string } }) {
     return (
         <>
             <Header />
@@ -17,7 +20,15 @@ export default function Home() {
 
             <RecentPostsList />
 
-            <PostsList getPosts={getAllPosts} />
+            <PostsList getPosts={() => getAllPosts(+page || 1)} />
+            <Link href={"/posts"}>
+                <Button
+                    className="flex items-center gap-1 rounded-full my-4"
+                >
+                    See more{" "}
+                    <Forward />
+                </Button>
+            </Link>
         </>
     )
 }

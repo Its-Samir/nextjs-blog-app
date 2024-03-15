@@ -34,6 +34,8 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  followers     String[]
+  followings     String[]
   accounts      Account[]
   posts         Post[]
   comments      Comment[]
@@ -49,13 +51,13 @@ model VerificationToken {
 }
 
 model Post {
-  id       String  @id @default(cuid())
-  slug     String  @unique
-  title    String
-  content  String
-  image    String?
-  likes    String[]
-  category String
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     String
+  image       String?
+  likes       String[]
+  category    String
   readingTime String
 
   createdAt DateTime @default(now())

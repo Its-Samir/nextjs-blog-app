@@ -2,7 +2,9 @@ import { PostsWithUser } from "@/types";
 import { db } from "@/lib/db";
 import { type Post } from "@prisma/client";
 
-export async function getAllPosts(): Promise<PostsWithUser[]> {
+export async function getAllPosts(page?: number): Promise<PostsWithUser[]> {
+    const skip = (6 * page! || 1) - 6;
+
     return db.post.findMany({
         include: {
             user: {
@@ -13,7 +15,9 @@ export async function getAllPosts(): Promise<PostsWithUser[]> {
             comments: {
                 _count: "desc",
             }
-        }
+        },
+        skip: skip,
+        take: 6,
     });
 }
 
@@ -98,5 +102,24 @@ export async function getRelatedPosts(currPostId: string, category: string): Pro
             NOT: [{ id: currPostId }]
         },
         take: 3,
+    });
+}
+
+export async function getPostsUserId(userId: string): Promise<PostsWithUser[]> {
+    return db.post.findMany({
+        where: {
+            userId,
+        },
+        orderBy: {
+            createdAt: "desc"
+        },
+        include: {
+            user: {
+                select: { username: true, image: true }
+            },
+            _count: {
+                select: { comments: true }
+            },
+        },
     });
 }

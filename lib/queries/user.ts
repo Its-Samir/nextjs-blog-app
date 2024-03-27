@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import type { User } from "@prisma/client";
+import { User } from "@prisma/client";
 
 export async function getUserById(id: string): Promise<User | null> {
     return db.user.findUnique({

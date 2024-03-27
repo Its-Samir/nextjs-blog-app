@@ -22,7 +22,7 @@ export default async function TopPost() {
                         priority
                     />
                 </div>
-                <div className="flex flex-[2] flex-col gap-3 md:gap-2">
+                <div className="flex flex-[3] flex-col gap-3 md:gap-2">
                     <div className="flex gap-1 items-center text-sm text-slate-500">
                         <Lightbulb size={12} />
                         <span className="text-slate-800">
@@ -33,7 +33,7 @@ export default async function TopPost() {
                             {topPost.readingTime}
                         </span>
                     </div>
-                    <CardTitle className="text-3xl md:text-xl">
+                    <CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, nesciunt?
                     </CardTitle>
                     <CardContent>
@@ -42,7 +42,7 @@ export default async function TopPost() {
                         </CardDescription>
                     </CardContent>
                     <CardFooter className="p-0 flex-wrap gap-2 text-slate-500 text-sm">
-                        <User username={topPost.user.username as string} />
+                        <User username={topPost.user.username as string} name={topPost.user.name as string} />
                         <div className="flex items-center gap-2 sm:hidden">
                             <Calendar size={12} />
                             <span>Nov 7, 2023</span>

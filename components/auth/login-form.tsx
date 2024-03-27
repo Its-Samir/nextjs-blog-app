@@ -19,6 +19,7 @@ export default function LoginForm() {
     const [isPending, startTransition] = useTransition();
     const [showPassword, setShowPassword] = useState(false);
     const [status, setStatus] = useState({ success: false, message: '' });
+
     const searchParams = useSearchParams();
     const errorQuery = searchParams.get("error");
     const oAuthError = errorQuery === "OAuthAccountNotLinked" ?

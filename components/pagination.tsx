@@ -22,6 +22,7 @@ export default function Pagination({ page, totalPost }: { page: number, totalPos
             <Button
                 className="flex items-center"
                 onClick={goToPrevPage}
+                size={"sm"}
                 disabled={page === 1 || !page}
             >
                 <ChevronLeft size={16} />
@@ -30,6 +31,7 @@ export default function Pagination({ page, totalPost }: { page: number, totalPos
                 disabled={(totalPost / 6) <= page}
                 className="flex items-center"
                 onClick={goToNextPage}
+                size={"sm"}
             >
                 <ChevronRight size={16} />
             </Button>

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { getAllPosts, getPostsByCategory, getPostsBySearchQuery } from "@/lib/queries/post";
 import { PostsWithUser } from "@/types";
 import { Suspense } from "react";
+import { BeatLoader } from "react-spinners";
 
 interface PostsPageProp {
     searchParams: {
@@ -27,7 +28,7 @@ async function Posts({ searchParams }: PostsPageProp) {
     }
 
     else {
-        getPosts = () => getAllPosts(+searchParams.page || 1);
+        getPosts = () => getAllPosts(parseInt(searchParams.page) || 1);
     }
 
     return <PostsList getPosts={getPosts} />
@@ -40,9 +41,9 @@ export default async function PostsPage({ searchParams }: PostsPageProp) {
         <>
             <SearchBar />
             <CategoryTabs />
-            <Suspense fallback={<p className="text-2xl text-slate-500 animate-pulse">loading...</p>}>
+            <Suspense fallback={<BeatLoader className="mx-auto" color="#00a5cb" />}>
                 <Posts searchParams={searchParams} />
-                <Pagination totalPost={postCount} page={+searchParams.page || 1} />
+                <Pagination totalPost={postCount} page={parseInt(searchParams.page) || 1} />
             </Suspense>
         </>
     )

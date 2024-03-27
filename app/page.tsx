@@ -8,27 +8,32 @@ import { getAllPosts } from "@/lib/queries/post";
 import { Button } from "@/components/ui/button";
 import { Forward } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { BeatLoader } from "react-spinners";
 
-export default function Home({ searchParams: { page } }: { searchParams: { page: string } }) {
-    return (
-        <>
-            <Header />
-            <SearchBar />
-            <CategoryTabs />
+export default function Home({
+	searchParams: { page },
+}: {
+	searchParams: { page: string };
+}) {
+	return (
+		<>
+			<Header />
+			<SearchBar />
+			<CategoryTabs />
 
-            <TopPost />
+			<TopPost />
 
-            <RecentPostsList />
+			<RecentPostsList />
 
-            <PostsList getPosts={() => getAllPosts(+page || 1)} />
-            <Link href={"/posts"}>
-                <Button
-                    className="flex items-center gap-1 rounded-full my-4"
-                >
-                    See more{" "}
-                    <Forward />
-                </Button>
-            </Link>
-        </>
-    )
+			<Suspense fallback={<BeatLoader color="#00a5cb" />}>
+				<PostsList getPosts={() => getAllPosts(parseInt(page) || 1)} />
+			</Suspense>
+			<Link href={"/posts"}>
+				<Button className="flex items-center gap-1 rounded-full my-4">
+					See more <Forward />
+				</Button>
+			</Link>
+		</>
+	);
 }

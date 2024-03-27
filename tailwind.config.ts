@@ -24,7 +24,7 @@ const config = {
   
         'md': {'max': '768px'},
   
-        'sm': {'max': '361px'},
+        'sm': {'max': '426px'},
       },
       colors: {
         border: "hsl(var(--border))",

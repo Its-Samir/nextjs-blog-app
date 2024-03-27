@@ -35,7 +35,6 @@ model User {
   emailVerified DateTime?
   image         String?
   followers     String[]
-  followings     String[]
   accounts      Account[]
   posts         Post[]
   comments      Comment[]

@@ -2,22 +2,21 @@ import { auth } from "@/auth";
 import FollowButton from "@/components/follow-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { getPostsUserId } from "@/lib/queries/post";
 import { getUserByUsername } from "@/lib/queries/user";
 import { MessageCircle, ThumbsUp } from "lucide-react";
-import { useSearchParams, useRouter, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 
-interface PostsPageProp {
+interface UserProfilePageProp {
 	params: {
 		username: string;
 	};
 }
 
-export default async function UserProfilepage({ params }: PostsPageProp) {
+export default async function UserProfilePage({ params }: UserProfilePageProp) {
 	const user = await getUserByUsername(params.username);
-    const session = await auth();
+	const session = await auth();
 
 	if (!user) {
 		notFound();
@@ -44,14 +43,17 @@ export default async function UserProfilepage({ params }: PostsPageProp) {
 						</p>
 						<div className="flex gap-2">
 							<span>
-								<b>{user.followings.length}</b> following
-							</span>
-							<span>
 								<b>{user.followers.length}</b> followers
 							</span>
 						</div>
 					</div>
-					<FollowButton content="Follow" isFollowing={new Set(user.followers).has(session ? session.user.id! : "")} />
+					<FollowButton
+						userId={user.id}
+						content="Follow"
+						isFollowing={new Set(user.followers).has(
+							session ? session.user.id! : ""
+						)}
+					/>
 				</div>
 			</Card>
 			<Card className="border-none">

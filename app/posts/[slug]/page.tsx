@@ -7,7 +7,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         where: { slug: params.slug },
         include: {
             user: {
-                select: { username: true, image: true }
+                select: { name: true, username: true, image: true }
             },
             comments: true
         }

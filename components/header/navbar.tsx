@@ -1,3 +1,13 @@
+import { LayoutDashboardIcon, LogOut } from "lucide-react";
+
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Menus from "./menus";
@@ -5,11 +15,6 @@ import NavLink from "./nav-link";
 import AuthModal from "@/components/auth/auth-modal";
 import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
 import { logOut } from "@/actions/auth/sign-out";
 
 export default async function NavBar() {
@@ -27,9 +32,9 @@ export default async function NavBar() {
 		);
 	} else if (session.user) {
 		authContent = (
-			<Popover>
-				<PopoverTrigger>
-					<Avatar className="w-7 h-7 sm:w-5 sm:h-5">
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Avatar className="w-7 h-7 sm:w-5 sm:h-5 cursor-pointer">
 						<AvatarImage
 							src={session.user.image || ""}
 							alt="avatar-img"
@@ -38,13 +43,23 @@ export default async function NavBar() {
 							{session.user.username?.slice(0, 1).toUpperCase()}
 						</AvatarFallback>
 					</Avatar>
-				</PopoverTrigger>
-				<PopoverContent asChild className="w-max p-0">
-					<form action={logOut}>
-						<Button size={"sm"}>Sign Out</Button>
-					</form>
-				</PopoverContent>
-			</Popover>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<DropdownMenuLabel>My Account</DropdownMenuLabel>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem>
+						<LayoutDashboardIcon className="mr-2" size={12} />
+						<span>Dashboard</span>
+					</DropdownMenuItem>
+					<DropdownMenuItem>
+						<LogOut className="mr-2" size={12} />
+
+						<form action={logOut}>
+							<button type="submit">Sign Out</button>
+						</form>
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
 		);
 	}
 

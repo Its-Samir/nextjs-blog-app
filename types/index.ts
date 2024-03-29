@@ -1,11 +1,11 @@
-import type { Comment, Post } from "@prisma/client";
+import type { Comment, Blog } from "@prisma/client";
 
 export default interface IActionsReturn {
 	error?: string;
 	success?: string;
 }
 
-export type PostsWithUser = Post & {
+export type BlogsWithUser = Blog & {
 	user: {
 		username: string | null;
 		name: string | null;
@@ -14,7 +14,7 @@ export type PostsWithUser = Post & {
 	_count?: { comments: number };
 };
 
-export type PostsWithUserAndComments = Post & {
+export type BlogsWithUserAndComments = Blog & {
 	user: {
 		username: string | null;
 		name: string | null;

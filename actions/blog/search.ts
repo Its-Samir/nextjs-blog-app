@@ -2,11 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-interface SearchPostFormState {
+interface SearchBlogFormState {
     error?: string
 }
 
-export async function searchPost(prevState: SearchPostFormState, formData: FormData) {
+export async function searchBlog(prevState: SearchBlogFormState, formData: FormData) {
     const query = formData.get("query");
 
     if (typeof query !== "string") {
@@ -15,7 +15,7 @@ export async function searchPost(prevState: SearchPostFormState, formData: FormD
         };
     }
 
-    if (!query) redirect(`/posts`);
+    if (!query) redirect(`/blogs`);
 
-    redirect(`/posts?search=${query}`);
+    redirect(`/blogs?search=${query}`);
 }

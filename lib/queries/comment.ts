@@ -10,10 +10,10 @@ export type CommentWithUser = Comment & {
 	};
 };
 
-export const getCommentsByPostId = cache(
-	(postId: string): Promise<CommentWithUser[]> => {
+export const getCommentsByBlogId = cache(
+	(blogId: string): Promise<CommentWithUser[]> => {
 		return db.comment.findMany({
-			where: { postId, parentId: null },
+			where: { blogId, parentId: null },
 			include: {
 				user: {
 					select: {

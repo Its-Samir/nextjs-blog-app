@@ -11,7 +11,7 @@ export default middleware((req) => {
 
     const isAuthRoutes = ["/login", "/register"].includes(nextUrl.pathname);
     const isVerificaitonRoutes = ["/new-password", "/verification"].includes(nextUrl.pathname);
-    const isProtectedRoutes = ["/dashboard"].includes(nextUrl.pathname);
+    const isProtectedRoutes = ["/profile/me", "/blogs/new"].includes(nextUrl.pathname);
     const token = nextUrl.searchParams.get('token');
 
     if (!token && isVerificaitonRoutes) {

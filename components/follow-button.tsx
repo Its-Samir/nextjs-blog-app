@@ -41,7 +41,7 @@ export default function FollowButton({
 				</Button>
 			</AuthModal>
 		);
-	} else if (session && session.data) {
+	} else if (session && session.data && session.data.user.id !== userId) {
 		buttonContent = (
 			<Button
 				size={"sm"}

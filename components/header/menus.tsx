@@ -10,7 +10,7 @@ export default function Menus({ children }: { children: React.ReactNode }) {
                 <Card className="border-none shadow-none mt-4">
                     <ul className="flex flex-col justify-between gap-4">
                         <NavLink path={"/"}><li>Home</li></NavLink>
-                        <NavLink path={"/posts"}><li>Posts</li></NavLink>
+                        <NavLink path={"/blogs"}><li>Blogs</li></NavLink>
                         <NavLink path={"/about"}><li>About</li></NavLink>
                     </ul>
                 </Card>

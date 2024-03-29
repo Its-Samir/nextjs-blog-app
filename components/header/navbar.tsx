@@ -1,4 +1,4 @@
-import { LayoutDashboardIcon, LogOut } from "lucide-react";
+import { Feather, LayoutDashboardIcon, LogOut } from "lucide-react";
 
 import {
 	DropdownMenu,
@@ -16,6 +16,7 @@ import AuthModal from "@/components/auth/auth-modal";
 import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { logOut } from "@/actions/auth/sign-out";
+import Link from "next/link";
 
 export default async function NavBar() {
 	const session = await auth();
@@ -34,7 +35,7 @@ export default async function NavBar() {
 		authContent = (
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Avatar className="w-7 h-7 sm:w-5 sm:h-5 cursor-pointer">
+					<Avatar className="w-7 h-7 cursor-pointer">
 						<AvatarImage
 							src={session.user.image || ""}
 							alt="avatar-img"
@@ -48,8 +49,10 @@ export default async function NavBar() {
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem>
-						<LayoutDashboardIcon className="mr-2" size={12} />
-						<span>Dashboard</span>
+						<Feather className="mr-2" size={12} />
+						<Link href={`/blogs/new`}>
+							<span>Write</span>
+						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
 						<LogOut className="mr-2" size={12} />
@@ -73,8 +76,8 @@ export default async function NavBar() {
 				<NavLink path={"/"}>
 					<li>Home</li>
 				</NavLink>
-				<NavLink path={"/posts"}>
-					<li>Posts</li>
+				<NavLink path={"/blogs"}>
+					<li>Blogs</li>
 				</NavLink>
 				<NavLink path={"/about"}>
 					<li>About</li>

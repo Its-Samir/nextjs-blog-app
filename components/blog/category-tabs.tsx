@@ -17,7 +17,7 @@ export default function CategoryTabs() {
     ];
 
     function handleClick(searchTerm: string) {
-        router.push(`/posts?category=${searchTerm}`);
+        router.push(`/blogs?category=${searchTerm}`);
     }
 
     return (

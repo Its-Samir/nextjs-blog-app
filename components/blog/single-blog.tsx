@@ -1,16 +1,19 @@
-import { Dot, Heart, MessageCircle, MoreHorizontal } from "lucide-react";
+import { Dot, Heart, MessageCircle } from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { PostsWithUserAndComments } from "@/types";
+import { BlogsWithUserAndComments } from "@/types";
 import RightBar from "./right-bar";
 import { Button } from "@/components/ui/button";
 import User from "@/components/profile/user";
-import { getRelatedPosts } from "@/lib/queries/post";
+import { getRelatedBlogs } from "@/lib/queries/blog";
 import Link from "next/link";
 import CommentList from "../comment/comment-list";
-import { getCommentsByPostId } from "@/lib/queries/comment";
+import { getCommentsByBlogId } from "@/lib/queries/comment";
+import { auth } from "@/auth";
+import CreateCommentForm from "../comment/create-comment-form";
+import ReactMarkdown from "react-markdown";
 
-export default function SinglePost({
+export default async function SingleBlog({
 	id,
 	title,
 	content,
@@ -20,7 +23,9 @@ export default function SinglePost({
 	likes,
 	comments,
 	readingTime,
-}: PostsWithUserAndComments) {
+}: BlogsWithUserAndComments) {
+	const session = await auth();
+
 	return (
 		<>
 			<Card className="rounded-none border-none p-3 shadow-none flex gap-4 md:flex-wrap mt-[1rem] justify-between">
@@ -30,7 +35,10 @@ export default function SinglePost({
 					</CardTitle>
 					<span className="textsm sm:text-xs">Written by -</span>
 					<div className="flex items-center gap-2 sm:text-xs flex-wrap">
-						<User username={user.username as string} name={user.name as string} />
+						<User
+							username={user.username as string}
+							name={user.name as string}
+						/>
 						<Dot size={18} />
 						<span className="text-slate-500">Nov 6, 2024</span>
 						<Dot size={18} />
@@ -60,24 +68,10 @@ export default function SinglePost({
 			<hr />
 			<Card className="flex md:flex-col gap-2 justify-between border-none shadow-none p-3">
 				<div className="flex-[3]">
-					<CardContent>
-						Lorem, ipsum dolor sit amet consectetur adipisicing
-						elit. Optio reiciendis soluta, non corporis fugiat
-						quibusdam expedita molestiae. Quam exercitationem
-						recusandae officiis maiores voluptates, soluta maxime
-						quae optio! Hic sunt unde esse fugiat illum nemo non
-						harum aspernatur sint rerum assumenda adipisci alias
-						exercitationem ullam, illo quo similique obcaecati
-						repudiandae ex itaque eveniet perspiciatis. Voluptates
-						doloribus harum architecto quasi officia quia dolore
-						corrupti mollitia cum maiores, odit saepe amet libero
-						blanditiis a quisquam neque molestias ullam dolores
-						dolor quo magnam consequuntur? Quam blanditiis quos odit
-						atque nemo rem ipsam consequatur deleniti minima
-						accusamus molestiae at natus autem, ut vel tempora
-						suscipit!
-					</CardContent>
-					<Link href={`/posts?category=${category}`}>
+					<ReactMarkdown className="markdown">
+						{content}
+					</ReactMarkdown>
+					<Link href={`/blogs?category=${category}`}>
 						<Button
 							className="rounded-full my-4"
 							variant={"outline"}
@@ -97,15 +91,26 @@ export default function SinglePost({
 					</div>
 				</div>
 				<RightBar
-					getPosts={() => getRelatedPosts(id, category)}
-					heading="Related posts"
+					getBlogs={() => getRelatedBlogs(id, category)}
+					heading="Related blogs"
 				/>
 			</Card>
-			<Card className="border-none shadow-none">
+			<Card className="border-none shadow-none my-4">
 				<CardTitle className="my-4 text-slate-600 md:text-lg">
 					Comments ({comments.length})
 				</CardTitle>
-				<CommentList getComments={() => getCommentsByPostId(id)} />
+				<CardContent className="flex flex-col gap-2 items-start my-4">
+					{session ? (
+						<>
+							<User
+								name={session.user.name!}
+								username={session.user.username}
+							/>
+							<CreateCommentForm blogId={id} />{" "}
+						</>
+					) : null}
+				</CardContent>
+				<CommentList getComments={() => getCommentsByBlogId(id)} />
 			</Card>
 		</>
 	);

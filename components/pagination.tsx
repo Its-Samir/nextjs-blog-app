@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function Pagination({ page, totalPost }: { page: number, totalPost: number }) {
+export default function Pagination({ page, totalBlog }: { page: number, totalBlog: number }) {
     const router = useRouter();
 
     const goToNextPage = () => {
@@ -28,7 +28,7 @@ export default function Pagination({ page, totalPost }: { page: number, totalPos
                 <ChevronLeft size={16} />
             </Button>
             <Button
-                disabled={(totalPost / 6) <= page}
+                disabled={(totalBlog / 6) <= page}
                 className="flex items-center"
                 onClick={goToNextPage}
                 size={"sm"}

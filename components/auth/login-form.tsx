@@ -23,7 +23,7 @@ export default function LoginForm() {
     const searchParams = useSearchParams();
     const errorQuery = searchParams.get("error");
     const oAuthError = errorQuery === "OAuthAccountNotLinked" ?
-        "Another account already exists with the same email" :
+        "An account is already exists with the same email" :
         "";
 
     const form = useForm<z.infer<typeof LoginFormSchema>>({

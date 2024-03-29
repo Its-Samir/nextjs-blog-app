@@ -1,11 +1,11 @@
-import { CalendarDays, Dot, Timer } from "lucide-react";
+import { CalendarDays, Dot } from "lucide-react";
 import { Card, CardFooter, CardTitle } from "@/components/ui/card";
-import { PostsWithUser } from "@/types";
+import { BlogsWithUser } from "@/types";
 import User from "@/components/profile/user";
 import Link from "next/link";
 import { formatTime } from "@/lib/time";
 
-export default function RecentPost({ slug, title, category, user, readingTime, createdAt }: PostsWithUser) {
+export default function RecentBlog({ slug, title, category, user, readingTime, createdAt }: BlogsWithUser) {
     return (
         <Card className="border-0 border-b shadow-none p-3 flex flex-col gap-3 sm:gap-2 w-[20rem] md:w-full rounded-none">
             <div className="flex items-center p-0 gap-2 text-slate-500 text-sm sm:text-xs">
@@ -16,7 +16,7 @@ export default function RecentPost({ slug, title, category, user, readingTime, c
                 </span>
             </div>
             <CardTitle className="text-xl sm:text-lg">
-                <Link href={`/posts/${slug}`}>
+                <Link href={`/blogs/${slug}`}>
                     {title}
                 </Link>
             </CardTitle>

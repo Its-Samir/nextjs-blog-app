@@ -1,11 +1,11 @@
-import { PostsWithUser } from "@/types";
+import { BlogsWithUser } from "@/types";
 import { db } from "@/lib/db";
-import { type Post } from "@prisma/client";
+import { Blog } from "@prisma/client";
 
-export async function getAllPosts(page?: number): Promise<PostsWithUser[]> {
+export async function getAllBlogs(page?: number): Promise<BlogsWithUser[]> {
 	const skip = (6 * page! || 1) - 6;
 
-	return db.post.findMany({
+	return db.blog.findMany({
 		include: {
 			user: {
 				select: { username: true, name: true, image: true },
@@ -21,10 +21,10 @@ export async function getAllPosts(page?: number): Promise<PostsWithUser[]> {
 	});
 }
 
-export async function getPostsByCategory(
+export async function getBlogsByCategory(
 	category: string
-): Promise<PostsWithUser[]> {
-	return db.post.findMany({
+): Promise<BlogsWithUser[]> {
+	return db.blog.findMany({
 		where: {
 			category: category,
 		},
@@ -36,10 +36,10 @@ export async function getPostsByCategory(
 	});
 }
 
-export async function getPostsBySearchQuery(
+export async function getBlogsBySearchQuery(
 	query: string
-): Promise<PostsWithUser[]> {
-	return db.post.findMany({
+): Promise<BlogsWithUser[]> {
+	return db.blog.findMany({
 		where: {
 			OR: [
 				{ title: { contains: query } },
@@ -55,8 +55,8 @@ export async function getPostsBySearchQuery(
 	});
 }
 
-export async function getTopPost(): Promise<PostsWithUser[]> {
-	return db.post.findMany({
+export async function getTopBlog(): Promise<BlogsWithUser[]> {
+	return db.blog.findMany({
 		orderBy: {
 			comments: {
 				_count: "desc",
@@ -71,8 +71,8 @@ export async function getTopPost(): Promise<PostsWithUser[]> {
 	});
 }
 
-export async function getRecentPosts(): Promise<PostsWithUser[]> {
-	return db.post.findMany({
+export async function getRecentBlogs(): Promise<BlogsWithUser[]> {
+	return db.blog.findMany({
 		orderBy: {
 			createdAt: "desc",
 		},
@@ -85,8 +85,8 @@ export async function getRecentPosts(): Promise<PostsWithUser[]> {
 	});
 }
 
-export async function getTrendingPosts(): Promise<PostsWithUser[]> {
-	return db.post.findMany({
+export async function getTrendingBlogs(): Promise<BlogsWithUser[]> {
+	return db.blog.findMany({
 		orderBy: {
 			likes: "desc",
 		},
@@ -99,27 +99,27 @@ export async function getTrendingPosts(): Promise<PostsWithUser[]> {
 	});
 }
 
-export async function getRelatedPosts(
-	currPostId: string,
+export async function getRelatedBlogs(
+	currblogId: string,
 	category: string
-): Promise<Post[]> {
-	return db.post.findMany({
+): Promise<Blog[]> {
+	return db.blog.findMany({
 		where: {
 			category,
-			NOT: [{ id: currPostId }],
+			NOT: [{ id: currblogId }],
 		},
 		take: 3,
 	});
 }
 
-export async function getPostsUserId(userId: string) {
+export async function getBlogsByUserId(userId: string) {
 	return db.user
 		.findUnique({
 			where: {
 				id: userId,
 			},
 		})
-		.posts({
+		.blogs({
 			orderBy: {
 				createdAt: "desc",
 			},

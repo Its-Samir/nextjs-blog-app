@@ -1,7 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import HoverProfile from "./hover-profile";
+import Link from "next/link";
 
-export default function User({ name, username }: { username: string, name: string }) {
+export default function User({
+	name,
+	username,
+}: {
+	username: string;
+	name: string;
+}) {
 	return (
 		<HoverProfile name={name} username={username}>
 			<div className="flex items-center gap-2 cursor-pointer">
@@ -15,7 +22,10 @@ export default function User({ name, username }: { username: string, name: strin
 						{username?.slice(0, 1).toUpperCase()}
 					</AvatarFallback>
 				</Avatar>
-				<span>{name.toUpperCase()}</span>
+				<Link href={`/profile/${username}`}>
+					{" "}
+					<span>{name.toUpperCase()}</span>
+				</Link>
 			</div>
 		</HoverProfile>
 	);

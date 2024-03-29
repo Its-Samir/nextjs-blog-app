@@ -3,7 +3,7 @@
 import { Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { searchPost } from "@/actions/post/search";
+import { searchBlog } from "@/actions/blog/search";
 import { useFormState, useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 
@@ -16,7 +16,7 @@ function FormButton() {
 }
 
 export default function SearchBar() {
-    const [state, action] = useFormState(searchPost, { error: "" })
+    const [state, action] = useFormState(searchBlog, { error: "" })
     const searchParams = useSearchParams();
     const query = searchParams.get("search");
 
@@ -27,7 +27,7 @@ export default function SearchBar() {
                 <Input
                     name="query"
                     defaultValue={query || ""}
-                    placeholder="Search posts"
+                    placeholder="Search blogs"
                     className="border-none focus-visible:ring-offset-0 focus:ring-0 focus-visible:ring-0"
                 />
                 <FormButton />

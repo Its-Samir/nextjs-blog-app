@@ -3,10 +3,34 @@ import FollowButton from "@/components/follow-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { getPostsUserId } from "@/lib/queries/post";
+import { db } from "@/lib/db";
+import { getBlogsByUserId } from "@/lib/queries/blog";
 import { getUserByUsername } from "@/lib/queries/user";
 import { MessageCircle, ThumbsUp } from "lucide-react";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export async function generateStaticParams() {
+	const users = await db.user.findMany();
+
+	return users.map((user) => ({ username: user.username }));
+}
+
+export async function generateMetadata({
+	params,
+}: {
+	params: { username: string };
+}): Promise<Metadata> {
+	const user = await getUserByUsername(params.username);
+
+	if (!user) {
+		notFound();
+	}
+
+	return {
+		title: `${user.username}`,
+	};
+}
 
 interface UserProfilePageProp {
 	params: {
@@ -22,7 +46,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 		notFound();
 	}
 
-	const posts = await getPostsUserId(user.id);
+	const blogs = await getBlogsByUserId(user.id);
 
 	return (
 		<div className="w-[40rem] mx-auto md:w-auto">

@@ -59,7 +59,7 @@ export default async function HoverProfile({
 
 	return (
 		<HoverCard openDelay={200}>
-			<HoverCardTrigger>{children}</HoverCardTrigger>
+			<HoverCardTrigger asChild>{children}</HoverCardTrigger>
 			<HoverCardContent className="flex flex-col gap-2">
 				{authContent}
 			</HoverCardContent>

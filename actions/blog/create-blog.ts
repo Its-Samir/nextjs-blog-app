@@ -2,17 +2,17 @@
 
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { PostFormSchema } from "@/lib/schemas/post-form-schema";
-import { Post } from "@prisma/client";
+import { CreateBlogFormSchema } from "@/lib/schemas/blog-form-schema";
+import { Blog } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-export async function createPost(values: z.infer<typeof PostFormSchema>) {
-	let post: Post;
+export async function createBlog(values: z.infer<typeof CreateBlogFormSchema>) {
+	let blog: Blog;
 
 	try {
-		const validation = PostFormSchema.safeParse(values);
+		const validation = CreateBlogFormSchema.safeParse(values);
 
 		if (!validation.success) {
 			return { error: "Invalid inputs" };
@@ -39,7 +39,7 @@ export async function createPost(values: z.infer<typeof PostFormSchema>) {
 						(content.split(" ").length / 200) * 60
 				  )} sec read`;
 
-		post = await db.post.create({
+		blog = await db.blog.create({
 			data: {
 				title,
 				slug,
@@ -56,5 +56,5 @@ export async function createPost(values: z.infer<typeof PostFormSchema>) {
 	}
 
 	revalidatePath("/");
-	redirect(`/posts/${post!.slug}`);
+	redirect(`/blogs/${blog!.slug}`);
 }

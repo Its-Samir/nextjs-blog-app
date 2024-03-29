@@ -30,13 +30,14 @@ model User {
   id            String    @id @default(cuid())
   username      String?
   name          String?
+  bio           String?
   email         String?   @unique
   password      String?
   emailVerified DateTime?
   image         String?
   followers     String[]
   accounts      Account[]
-  posts         Post[]
+  blogs         Blog[]
   comments      Comment[]
 }
 
@@ -49,7 +50,7 @@ model VerificationToken {
   @@unique([email, token])
 }
 
-model Post {
+model Blog {
   id          String   @id @default(cuid())
   slug        String   @unique
   title       String
@@ -76,11 +77,11 @@ model Comment {
   updatedAt DateTime @updatedAt
 
   userId   String
-  postId   String
+  blogId   String
   parentId String?
 
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  blog   Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
   parent Comment? @relation("Comments", fields: [parentId], references: [id], onDelete: Cascade)
 
   childrens Comment[] @relation("Comments")

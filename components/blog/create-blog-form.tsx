@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PostFormSchema } from "@/lib/schemas/post-form-schema";
+import { CreateBlogFormSchema } from "@/lib/schemas/blog-form-schema";
 import {
 	Select,
 	SelectContent,
@@ -22,10 +22,13 @@ import {
 	deleteObject,
 	getDownloadURL,
 	ref,
-	uploadBytes,
 	uploadBytesResumable,
 } from "firebase/storage";
 import { z } from "zod";
+import dynamic from 'next/dynamic'
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
+import "easymde/dist/easymde.min.css";
+
 import {
 	Form,
 	FormControl,
@@ -36,19 +39,17 @@ import {
 } from "@/components/ui/form";
 import { storage } from "@/lib/firebase";
 import { Progress } from "@/components/ui/progress";
-import { createPost } from "@/actions/post/create-post";
+import { createBlog } from "@/actions/blog/create-blog";
 import { toast } from "sonner";
 
-export default function CreatePostPage() {
+export default function CreateBlogForm() {
 	const [file, setFile] = useState<File | null>(null);
 	const [image, setImage] = useState<string>("");
-	1;
 	const [progress, setProgress] = useState<number>(0);
-	const [noImage, setNoImage] = useState(false);
 	const [isPending, startTransition] = useTransition();
 
-	const form = useForm<z.infer<typeof PostFormSchema>>({
-		resolver: zodResolver(PostFormSchema),
+	const form = useForm<z.infer<typeof CreateBlogFormSchema>>({
+		resolver: zodResolver(CreateBlogFormSchema),
 		defaultValues: {
 			title: "",
 			content: "",
@@ -57,16 +58,11 @@ export default function CreatePostPage() {
 		},
 	});
 
-	function onFormSubmit(values: z.infer<typeof PostFormSchema>) {
-		if (!image) {
-			setNoImage(true);
-			return;
-		}
-
+	function onFormSubmit(values: z.infer<typeof CreateBlogFormSchema>) {
 		values.image = image;
 
 		startTransition(() => {
-			createPost(values)
+			createBlog(values)
 				.then((data) => {
 					if (data && data.error) {
 						toast.error(data.error, {
@@ -76,7 +72,7 @@ export default function CreatePostPage() {
 									: data.error,
 						});
 					} else {
-						toast.success("Post created");
+						toast.success("Blog created");
 					}
 				})
 				.catch((err) => {
@@ -87,20 +83,6 @@ export default function CreatePostPage() {
 
 	useEffect(() => {
 		if (!file) return;
-
-		const localStorageImage = localStorage.getItem("image");
-
-		if (localStorageImage) {
-			const prevImageRef = ref(storage, localStorageImage);
-
-			if (prevImageRef.toString()) {
-				deleteObject(prevImageRef).then(() => {});
-			}
-
-			localStorage.clear();
-
-			setImage("");
-		}
 
 		const storageRef = ref(storage, `files/${file.name}`);
 		const uploadTask = uploadBytesResumable(storageRef, file);
@@ -116,7 +98,6 @@ export default function CreatePostPage() {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
 					setImage(url);
-					localStorage.setItem("image", url);
 					setFile(null);
 				});
 			}
@@ -153,7 +134,7 @@ export default function CreatePostPage() {
 													<SelectItem value="health">
 														Health
 													</SelectItem>
-													<SelectItem value="developement">
+													<SelectItem value="development">
 														Development
 													</SelectItem>
 													<SelectItem value="accounting">
@@ -203,10 +184,9 @@ export default function CreatePostPage() {
 							<FormItem>
 								<FormLabel>Content</FormLabel>
 								<FormControl>
-									<Textarea
+									<SimpleMDE
 										{...field}
-										rows={10}
-										placeholder="Write something..."
+										placeholder="Enter content"
 									/>
 								</FormControl>
 								<FormMessage />
@@ -222,22 +202,17 @@ export default function CreatePostPage() {
 								<FormLabel>Image</FormLabel>
 								<FormControl>
 									<Input
-										style={{
-											border: noImage
-												? "1px solid rgb(255, 100, 100)"
-												: "1px solid #ccc",
-										}}
-										onChange={(e) => {
-											e.target.files![0] &&
-												setFile(e.target.files![0]);
-											setNoImage(false);
+										{...field}
+										onChangeCapture={(e) => {
+											e.currentTarget.files![0] &&
+												setFile(
+													e.currentTarget.files![0]
+												);
 										}}
 										type="file"
 									/>
 								</FormControl>
-								<FormMessage
-									children={noImage ? "Image required" : ""}
-								/>
+								<FormMessage />
 							</FormItem>
 						)}
 					/>

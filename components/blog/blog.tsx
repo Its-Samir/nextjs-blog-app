@@ -7,19 +7,19 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Calendar, Dot, Lightbulb } from "lucide-react";
-import { PostsWithUser } from "@/types";
+import { BlogsWithUser } from "@/types";
 import Link from "next/link";
 import User from "@/components/profile/user";
 import { formatTime } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
-type PostPropsType = PostsWithUser & {
+type BlogPropsType = BlogsWithUser & {
 	className?: string;
 	includeImg?: boolean;
 	includeContent?: boolean;
 };
 
-export default function Post({
+export default function Blog({
 	title,
 	content,
 	image,
@@ -31,11 +31,13 @@ export default function Post({
 	className,
 	includeImg = true,
 	includeContent = true,
-}: PostPropsType) {
+}: BlogPropsType) {
 	return (
 		<Card
 			className={cn(
-				`border-0 border-b hover:shadow-md shadow-none p-3 flex flex-col gap-3 w-[18rem] ${!includeImg ? "md:w-full" : "lg:w-full"} lg:flex-row rounded-none`,
+				`border-0 border-b hover:shadow-md shadow-none p-3 flex flex-col gap-3 w-[18rem] ${
+					!includeImg ? "md:w-full" : "lg:w-full"
+				} lg:flex-row rounded-none`,
 				className
 			)}
 		>
@@ -61,22 +63,24 @@ export default function Post({
 					<span>{readingTime}</span>
 				</div>
 				<CardTitle className="text-xl sm:text-base">
-					<Link href={`/posts/${slug}`}>
-						Lorem ipsum dolor sit amet.
+					<Link href={`/blogs/${slug}`}>
+						{title.substring(0, 20)}...
 					</Link>
 				</CardTitle>
 				{includeContent ? (
 					<CardContent>
 						<CardDescription className="sm:text-xs sm:hidden">
-							<Link href={`/posts/${slug}`}>
-								Lorem ipsum, dolor sit amet consectetur
-								adipisicing elit. Dolor, aperiam!
+							<Link href={`/blogs/${slug}`}>
+								{content.substring(0, 100)}...
 							</Link>
 						</CardDescription>
 					</CardContent>
 				) : null}
 				<CardFooter className="p-0 gap-2 text-slate-500 text-sm sm:text-xs">
-					<User username={user.username as string} name={user.name as string} />
+					<User
+						username={user.username as string}
+						name={user.name as string}
+					/>
 					<Calendar size={12} />
 					<span>{formatTime(createdAt)}</span>
 				</CardFooter>

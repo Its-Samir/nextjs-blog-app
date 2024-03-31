@@ -31,14 +31,9 @@ export default async function Comment({
 				</div>
 				<MoreHorizontal size={16} />
 			</div>
-			<p className="text-sm text-slate-600 ml-[2rem] p-2">
-				{comment.text}
-			</p>
+			<p className="text-sm text-slate-600 ml-[2rem] p-2">{comment.text}</p>
 			{!childComment ? (
-				<CommentReplyBox
-					blogId={comment.blogId}
-					parentId={comment.id}
-				/>
+				<CommentReplyBox blogId={comment.blogId} parentId={comment.id} />
 			) : null}
 		</Card>
 	);

@@ -78,3 +78,15 @@
 .markdown > * {
   all: revert;
 }
+
+.editor-preview-side > h1 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+blockquote > * {
+    color: #666;
+    margin: 0;
+    padding-left: 2em;
+    border-left: 0.5em #eee solid;
+}

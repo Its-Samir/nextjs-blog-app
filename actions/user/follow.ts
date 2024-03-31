@@ -23,14 +23,11 @@ export async function follow(userId: string, currentUserId: string) {
 					followers: { push: currentUserId },
 				},
 			});
-
 		} else {
 			await db.user.update({
 				where: { id: user.id },
 				data: {
-					followers: user.followers.filter(
-						(id) => id !== currentUserId
-					),
+					followers: user.followers.filter((id) => id !== currentUserId),
 				},
 			});
 		}

@@ -7,6 +7,7 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
@@ -47,7 +48,7 @@ export default function CreateCommentForm({
 						});
 					} else {
 						toast.success("Comment created");
-                        form.reset();
+						form.reset();
 					}
 				})
 				.catch((err) => {
@@ -67,6 +68,7 @@ export default function CreateCommentForm({
 					control={form.control}
 					render={({ field }) => (
 						<FormItem>
+							<FormLabel></FormLabel>
 							<FormControl>
 								<Textarea
 									{...field}
@@ -83,11 +85,7 @@ export default function CreateCommentForm({
 					disabled={isPending}
 					type="submit"
 					children={
-						isPending ? (
-							<BeatLoader color="white" size={8} />
-						) : (
-							"Done"
-						)
+						isPending ? <BeatLoader color="white" size={8} /> : "Done"
 					}
 					size={"sm"}
 				/>

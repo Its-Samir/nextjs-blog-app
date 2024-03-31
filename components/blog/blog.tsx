@@ -12,6 +12,9 @@ import Link from "next/link";
 import User from "@/components/profile/user";
 import { formatTime } from "@/lib/time";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import removeMarkdownTags from "@/lib/remove-markdown-tags";
 
 type BlogPropsType = BlogsWithUser & {
 	className?: string;
@@ -63,15 +66,13 @@ export default function Blog({
 					<span>{readingTime}</span>
 				</div>
 				<CardTitle className="text-xl sm:text-base">
-					<Link href={`/blogs/${slug}`}>
-						{title.substring(0, 20)}...
-					</Link>
+					<Link href={`/blogs/${slug}`}>{title.substring(0, 45)}...</Link>
 				</CardTitle>
 				{includeContent ? (
 					<CardContent>
 						<CardDescription className="sm:text-xs sm:hidden">
 							<Link href={`/blogs/${slug}`}>
-								{content.substring(0, 100)}...
+								{removeMarkdownTags(content).substring(0, 80)}...
 							</Link>
 						</CardDescription>
 					</CardContent>

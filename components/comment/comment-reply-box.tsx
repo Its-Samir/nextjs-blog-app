@@ -20,13 +20,10 @@ export default function CommentReplyBox({
 				onClick={() => setOpenBox((p) => !p)}
 			>
 				<Reply size={12} />
-                <span>Reply </span>
+				<span>Reply </span>
 			</span>
 			{openBox ? (
-				<CreateCommentForm
-					blogId={blogId}
-					parentId={parentId}
-				/>
+				<CreateCommentForm blogId={blogId} parentId={parentId} />
 			) : null}
 		</div>
 	);

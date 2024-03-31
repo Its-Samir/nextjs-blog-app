@@ -1,4 +1,4 @@
-import CreateBlogForm from "@/components/blog/create-blog-form";
+import BlogForm from "@/components/blog/blog-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreateBlogPage() {
-	return <CreateBlogForm />;
+	return <BlogForm />;
 }

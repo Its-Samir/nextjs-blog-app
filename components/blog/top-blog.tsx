@@ -10,6 +10,7 @@ import { Calendar, Dot, Lightbulb } from "lucide-react";
 import { getTopBlog } from "@/lib/queries/blog";
 import User from "@/components/profile/user";
 import Link from "next/link";
+import removeMarkdownTags from "@/lib/remove-markdown-tags";
 
 export default async function TopBlog() {
 	const [topBlog] = await getTopBlog();
@@ -41,14 +42,14 @@ export default async function TopBlog() {
 					</div>
 					<CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto">
 						<Link href={`/blogs/${topBlog.slug}`}>
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit. Molestias, nesciunt?
+							{topBlog.title.substring(0, 50)}...
 						</Link>
 					</CardTitle>
 					<CardContent>
 						<CardDescription className="w-[65%] md:w-auto">
 							<Link href={`/blogs/${topBlog.slug}`}>
-								{topBlog.content.substring(0, 100)}...
+								{removeMarkdownTags(topBlog.content).substring(0, 100)}
+								...
 							</Link>
 						</CardDescription>
 					</CardContent>

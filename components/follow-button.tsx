@@ -31,8 +31,7 @@ export default function FollowButton({
 
 	let buttonContent: React.ReactNode;
 
-	if (session.status === "loading") buttonContent = <BeatLoader size={8}/>
-
+	if (session.status === "loading") buttonContent = <BeatLoader size={8} />;
 	else if (!session || !session.data) {
 		buttonContent = (
 			<AuthModal>
@@ -46,7 +45,9 @@ export default function FollowButton({
 			<Button
 				size={"sm"}
 				variant={isFollowing ? "outline" : "default"}
-				className={`rounded-full ${isFollowing ? "hover:bg-red-400 hover:text-white" : ""}`}
+				className={`rounded-full ${
+					isFollowing ? "hover:bg-red-400 hover:text-white" : ""
+				}`}
 				onClick={handleClick}
 				disabled={isPending}
 			>

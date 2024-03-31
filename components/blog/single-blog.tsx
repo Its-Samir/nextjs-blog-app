@@ -12,6 +12,7 @@ import { getCommentsByBlogId } from "@/lib/queries/comment";
 import { auth } from "@/auth";
 import CreateCommentForm from "../comment/create-comment-form";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default async function SingleBlog({
 	id,
@@ -30,9 +31,7 @@ export default async function SingleBlog({
 		<>
 			<Card className="rounded-none border-none p-3 shadow-none flex gap-4 md:flex-wrap mt-[1rem] justify-between">
 				<div className="flex flex-col gap-5 md:gap-3 w-[40rem]">
-					<CardTitle className="text-4xl md:text-xl">
-						{title}
-					</CardTitle>
+					<CardTitle className="text-4xl md:text-xl">{title}</CardTitle>
 					<span className="textsm sm:text-xs">Written by -</span>
 					<div className="flex items-center gap-2 sm:text-xs flex-wrap">
 						<User
@@ -45,10 +44,7 @@ export default async function SingleBlog({
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
-						<Heart
-							fill="rgb(255, 15, 150)"
-							color="rgb(255, 15, 150)"
-						/>
+						<Heart fill="rgb(255, 15, 150)" color="rgb(255, 15, 150)" />
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>
@@ -68,23 +64,17 @@ export default async function SingleBlog({
 			<hr />
 			<Card className="flex md:flex-col gap-2 justify-between border-none shadow-none p-3">
 				<div className="flex-[3]">
-					<ReactMarkdown className="markdown">
+					<ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
 						{content}
 					</ReactMarkdown>
 					<Link href={`/blogs?category=${category}`}>
-						<Button
-							className="rounded-full my-4"
-							variant={"outline"}
-						>
+						<Button className="rounded-full my-4" variant={"outline"}>
 							#{category}
 						</Button>
 					</Link>
 
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
-						<Heart
-							fill="rgb(255, 15, 150)"
-							color="rgb(255, 15, 150)"
-						/>
+						<Heart fill="rgb(255, 15, 150)" color="rgb(255, 15, 150)" />
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>

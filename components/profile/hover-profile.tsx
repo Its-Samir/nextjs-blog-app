@@ -36,20 +36,22 @@ export default async function HoverProfile({
 							<div className="rounded-full h-8 w-8 bg-green-500" />
 							<div className="flex flex-col text-xs">
 								<span>{name.toUpperCase()}</span>
-								<span className="text-slate-500">
-									@{username}
-								</span>
+								<span className="text-slate-500">@{username}</span>
 							</div>
 						</div>
 					</Link>
-					<FollowButton userId={user.id} content="Follow" isFollowing={isFollowing} />
+					<FollowButton
+						userId={user.id}
+						content="Follow"
+						isFollowing={isFollowing}
+					/>
 				</div>
 
 				<p className="text-slate-600 text-sm sm:text-xs">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit.
 					Reiciendis ratione a perferendis suscipit. Ad, obcaecati!
 				</p>
-{/* 
+				{/* 
 				<p className="text-slate-600 text-sm sm:text-xs">
 					{user.followers.length} followers
 				</p>				 */}

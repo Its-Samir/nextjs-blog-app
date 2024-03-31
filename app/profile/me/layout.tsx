@@ -27,13 +27,10 @@ export default function DashboardLayout({
 				</Avatar>
 				<div className="flex items-end gap-4 justify-between text-slate-500">
 					<div className="flex flex-col gap-2 justify-end">
-						<span className="text-slate-700 font-semibold">
-							Username
-						</span>
+						<span className="text-slate-700 font-semibold">Username</span>
 						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Fugit molestiae dolor odit necessitatibus
-							optio. Fuga?
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Fugit molestiae dolor odit necessitatibus optio. Fuga?
 						</p>
 						<div className="flex gap-2">
 							<span>

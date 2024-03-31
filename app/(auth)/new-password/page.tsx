@@ -4,27 +4,27 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Change your password",
-}
+	title: "Change your password",
+};
 
 interface PasswordResetPageProps {
-    searchParams: {
-        token: string;
-    }
+	searchParams: {
+		token: string;
+	};
 }
 
-export default async function PasswordResetPage({ searchParams }: PasswordResetPageProps) {
-    if (!searchParams.token) {
-        redirect("/");
-    }
+export default async function PasswordResetPage({
+	searchParams,
+}: PasswordResetPageProps) {
+	if (!searchParams.token) {
+		redirect("/");
+	}
 
-    const token = await getVerificationToken(searchParams.token);
+	const token = await getVerificationToken(searchParams.token);
 
-    if (!token) {
-        redirect("/");
-    }
+	if (!token) {
+		redirect("/");
+	}
 
-    return (
-        <PasswordResetForm token={token.token} />
-    )
+	return <PasswordResetForm token={token.token} />;
 }

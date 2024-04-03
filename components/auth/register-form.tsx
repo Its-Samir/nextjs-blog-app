@@ -10,7 +10,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RegisterFormSchema } from "@/lib/schemas/register-form-schema";
+import { registerFormSchema } from "@/lib/schemas/register-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,8 +25,8 @@ export default function RegisterForm() {
 	const [status, setStatus] = useState({ success: false, message: "" });
 	const [showPassword, setShowPassword] = useState(false);
 
-	const form = useForm<z.infer<typeof RegisterFormSchema>>({
-		resolver: zodResolver(RegisterFormSchema),
+	const form = useForm<z.infer<typeof registerFormSchema>>({
+		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
 			username: "",
 			email: "",
@@ -34,7 +34,7 @@ export default function RegisterForm() {
 		},
 	});
 
-	function onFormSubmit(values: z.infer<typeof RegisterFormSchema>) {
+	function onFormSubmit(values: z.infer<typeof registerFormSchema>) {
 		setShowPassword(false);
 
 		startTransition(() => {

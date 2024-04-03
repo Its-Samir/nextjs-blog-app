@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { storage } from "@/lib/firebase";
-import { BlogFormSchema } from "@/lib/schemas/blog-form-schema";
+import { blogFormSchema } from "@/lib/schemas/blog-form-schema";
 import { Blog } from "@prisma/client";
 import { deleteObject, ref } from "firebase/storage";
 import { revalidatePath } from "next/cache";
@@ -11,13 +11,13 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export async function createOrUpdateBlog(
-	values: z.infer<typeof BlogFormSchema>,
+	values: z.infer<typeof blogFormSchema>,
 	blogData?: Blog
 ) {
 	let blog: Blog;
 
 	try {
-		const validation = BlogFormSchema.safeParse(values);
+		const validation = blogFormSchema.safeParse(values);
 
 		if (!validation.success) {
 			return { error: "Invalid inputs" };

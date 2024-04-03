@@ -13,7 +13,7 @@ import {
 import { Textarea } from "../ui/textarea";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CreateCommentFormSchema } from "@/lib/schemas/create-comment-schema";
+import { createCommentFormSchema } from "@/lib/schemas/create-comment-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BeatLoader } from "react-spinners";
 import { CreateComment } from "@/actions/comment/create-comment";
@@ -28,14 +28,14 @@ export default function CreateCommentForm({
 }) {
 	const [isPending, startTransition] = useTransition();
 
-	const form = useForm<z.infer<typeof CreateCommentFormSchema>>({
-		resolver: zodResolver(CreateCommentFormSchema),
+	const form = useForm<z.infer<typeof createCommentFormSchema>>({
+		resolver: zodResolver(createCommentFormSchema),
 		defaultValues: {
 			text: "",
 		},
 	});
 
-	function onFormSubmit(values: z.infer<typeof CreateCommentFormSchema>) {
+	function onFormSubmit(values: z.infer<typeof createCommentFormSchema>) {
 		startTransition(() => {
 			CreateComment(values, blogId, parentId)
 				.then((data) => {

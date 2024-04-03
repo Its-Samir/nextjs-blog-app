@@ -1,8 +1,46 @@
+import { auth } from "@/auth";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { MessageCircle, ThumbsUp } from "lucide-react";
+import { useSession } from "next-auth/react";
+import AccountForm from "../_components/account-form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+	searchParams: {
+		tab: string;
+	};
+}
+
+export default async function DashboardPage({
+	searchParams: { tab },
+}: DashboardPageProps) {
+	const session = await auth();
+
+	if (!session || !session.user) {
+		return null;
+	}
+
+	if (tab === "account") {
+		return <AccountForm user={session.user} />;
+	}
+
+	if (tab === "settings") {
+		return (
+			<Card className="flex flex-col gap-3 border-none shadow-none">
+				<label>Password</label>
+				<Input defaultValue={"******"} disabled />
+
+				<span>Accout deletion</span>
+				<hr />
+				<Button variant={"destructive"} className="w-max">
+					Delete Account
+				</Button>
+			</Card>
+		);
+	}
+
 	return (
 		<Card className="border-none">
 			<div className="flex justify-between items-center p-4 border-0 border-b">

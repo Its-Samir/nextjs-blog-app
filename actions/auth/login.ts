@@ -2,17 +2,17 @@
 
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { LoginFormSchema } from "@/lib/schemas/login-form-schema";
+import { loginFormSchema } from "@/lib/schemas/login-form-schema";
 import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
 import { getAccountByUserId } from "@/lib/queries/account";
 import { getUserByEmail } from "@/lib/queries/user";
 
-export async function login(values: z.infer<typeof LoginFormSchema>) {
+export async function login(values: z.infer<typeof loginFormSchema>) {
 	let redirectUrl;
 
 	try {
-		const validationResult = LoginFormSchema.safeParse(values);
+		const validationResult = loginFormSchema.safeParse(values);
 
 		if (!validationResult.success) {
 			return { error: "Invalid inputs" };

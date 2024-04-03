@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { CreateCommentFormSchema } from "@/lib/schemas/create-comment-schema";
+import { createCommentFormSchema } from "@/lib/schemas/create-comment-schema";
 import IActionsReturn from "@/types";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
@@ -9,14 +9,14 @@ import { revalidatePath } from "next/cache";
 import { Blog } from "@prisma/client";
 
 export async function CreateComment(
-	values: z.infer<typeof CreateCommentFormSchema>,
+	values: z.infer<typeof createCommentFormSchema>,
 	blogId: string,
 	parentId?: string
 ) {
 	let blog: Blog | null;
 
 	try {
-		const validation = CreateCommentFormSchema.safeParse(values);
+		const validation = createCommentFormSchema.safeParse(values);
 
 		if (!validation.success) {
 			return { error: "Invalid inputs" };

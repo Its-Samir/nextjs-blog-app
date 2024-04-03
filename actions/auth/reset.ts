@@ -3,15 +3,15 @@
 import IActionsReturn from "@/types";
 import { z } from "zod";
 import { sendResetPasswordEmail } from "@/lib/mail";
-import { ResetFormSchema } from "@/lib/schemas/reset-form-schema";
+import { resetFormSchema } from "@/lib/schemas/reset-form-schema";
 import { generateVerificationToken } from "@/lib/token";
 import { getUserByEmail } from "@/lib/queries/user";
 
 export async function sendEmail(
-	values: z.infer<typeof ResetFormSchema>
+	values: z.infer<typeof resetFormSchema>
 ): Promise<IActionsReturn> {
 	try {
-		const validationResult = ResetFormSchema.safeParse(values);
+		const validationResult = resetFormSchema.safeParse(values);
 
 		if (!validationResult.success) {
 			return { error: "Invalid inputs" };

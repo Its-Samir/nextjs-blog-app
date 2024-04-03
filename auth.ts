@@ -16,6 +16,7 @@ const authOptions = NextAuth({
                 session.user.name = token.name;
                 session.user.username = token.username;
                 session.user.emailVerified = token.emailVerified;
+                session.user.bio = token.bio;
             }
 
             return session;
@@ -39,6 +40,7 @@ const authOptions = NextAuth({
             token.name = user.name;
             token.username = user.username!;
             token.emailVerified = user.emailVerified!;
+            token.bio = user.bio!;
 
             return token;
         },
@@ -47,4 +49,4 @@ const authOptions = NextAuth({
     ...authConfig,
 });
 
-export const { auth, handlers: { GET, POST }, signIn, signOut } = authOptions;
+export const { auth, unstable_update, handlers: { GET, POST }, signIn, signOut } = authOptions;

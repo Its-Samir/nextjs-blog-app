@@ -8,7 +8,7 @@ import { Loader2, Plus } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BlogFormSchema } from "@/lib/schemas/blog-form-schema";
+import { blogFormSchema } from "@/lib/schemas/blog-form-schema";
 import {
 	Select,
 	SelectContent,
@@ -51,8 +51,8 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [progress, setProgress] = useState<number>(0);
 	const [isPending, startTransition] = useTransition();
 
-	const form = useForm<z.infer<typeof BlogFormSchema>>({
-		resolver: zodResolver(BlogFormSchema),
+	const form = useForm<z.infer<typeof blogFormSchema>>({
+		resolver: zodResolver(blogFormSchema),
 		defaultValues: {
 			title: blog ? blog.title : "",
 			content: blog ? blog.content : "",
@@ -61,7 +61,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 		},
 	});
 
-	function onFormSubmit(values: z.infer<typeof BlogFormSchema>) {
+	function onFormSubmit(values: z.infer<typeof blogFormSchema>) {
 		values.image = image;
 
 		startTransition(() => {
@@ -77,7 +77,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 									: data.error,
 						});
 					} else {
-						toast.success("Blog created");
+						toast.success(blog ? "Blog Updated" : "Blog Created");
 					}
 				})
 				.catch((err) => {

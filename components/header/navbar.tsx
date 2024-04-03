@@ -1,4 +1,4 @@
-import { Feather, LayoutDashboardIcon, LogOut } from "lucide-react";
+import { Feather, LayoutDashboardIcon, LogOut, User } from "lucide-react";
 
 import {
 	DropdownMenu,
@@ -52,6 +52,12 @@ export default async function NavBar() {
 						<Feather className="mr-2" size={12} />
 						<Link href={`/blogs/new`}>
 							<span>Write</span>
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem>
+						<User className="mr-2" size={12} />
+						<Link href={`/profile/me`}>
+							<span>Profile</span>
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem>

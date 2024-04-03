@@ -2,16 +2,16 @@
 
 import IActionsReturn from "@/types";
 import bcrypt from "bcryptjs";
-import { RegisterFormSchema } from "@/lib/schemas/register-form-schema";
+import { registerFormSchema } from "@/lib/schemas/register-form-schema";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
 export async function register(
-	values: z.infer<typeof RegisterFormSchema>
+	values: z.infer<typeof registerFormSchema>
 ): Promise<IActionsReturn> {
 	try {
-		const validationResult = RegisterFormSchema.safeParse(values);
+		const validationResult = registerFormSchema.safeParse(values);
 
 		if (!validationResult.success) {
 			return { error: "Invalid inputs" };

@@ -77,7 +77,9 @@ export default async function NavBar() {
 			<Menus>
 				<Menu />
 			</Menus>
-			<h1 className="text-2xl text-blue-500">logo</h1>
+			<h1 className="text-2xl text-blue-500">
+				<Link href={"/"}>BLOGIFY</Link>
+			</h1>
 			<ul className="flex item-center justify-between gap-4 md:hidden">
 				<NavLink path={"/"}>
 					<li>Home</li>

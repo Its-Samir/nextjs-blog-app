@@ -7,7 +7,6 @@ export const accountFormSchema = z.object({
 	name: z.string().min(1, {
 		message: "Name is required",
 	}),
-	bio: z.string().min(3, {
-		message: "Bio should be more than 2 character",
-	}),
+	bio: z.optional(z.string()),
+	avatar: z.optional(z.string()),
 });

@@ -1,4 +1,4 @@
-import { Dot, Heart, MessageCircle } from "lucide-react";
+import { Dot, Edit, Heart, MessageCircle, ThumbsUp, Trash2 } from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { BlogsWithUserAndComments } from "@/types";
@@ -44,19 +44,29 @@ export default async function SingleBlog({
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
-						<Heart fill="rgb(255, 15, 150)" color="rgb(255, 15, 150)" />
+						<ThumbsUp stroke="black" color="rgb(255, 15, 150)" />
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>
 					</div>
+					{session && session.user && session.user.username === user.username ? (
+						<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
+							<Button variant={"secondary"} size={"sm"}>
+								<Edit size={16} />
+							</Button>
+							<Button variant={"destructive"} size={"sm"}>
+								<Trash2 size={16} />
+							</Button>
+						</div>
+					) : null}
 				</div>
-				<div className="w-[25rem] md:w-[18rem]">
+				<div className="w-[25rem] md:w-[45%]">
 					<Image
 						src={image as string}
 						alt="img"
 						width={500}
 						height={100}
-						style={{ width: "auto", height: "auto" }}
+						style={{ width: "auto", height: "auto", aspectRatio: 16/9 }}
 						priority
 					/>
 				</div>

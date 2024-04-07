@@ -2,8 +2,9 @@ import { BlogsWithUser } from "@/types";
 import { db } from "@/lib/db";
 import { Blog } from "@prisma/client";
 
-export async function getAllBlogs(page?: number): Promise<BlogsWithUser[]> {
-	const skip = (6 * page! || 1) - 6;
+export async function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
+	const limit = 6;
+	const skip = limit * page - limit;
 
 	return db.blog.findMany({
 		include: {
@@ -17,7 +18,7 @@ export async function getAllBlogs(page?: number): Promise<BlogsWithUser[]> {
 			},
 		},
 		skip: skip,
-		take: 6,
+		take: limit,
 	});
 }
 
@@ -123,5 +124,6 @@ export async function getBlogsByUserId(userId: string) {
 			orderBy: {
 				createdAt: "desc",
 			},
+			include: { user: true },
 		});
 }

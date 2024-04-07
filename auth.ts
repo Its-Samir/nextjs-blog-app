@@ -49,4 +49,4 @@ const authOptions = NextAuth({
     ...authConfig,
 });
 
-export const { auth, unstable_update, handlers: { GET, POST }, signIn, signOut } = authOptions;
+export const { auth, handlers: { GET, POST }, signIn, signOut } = authOptions;

@@ -38,7 +38,7 @@ export default function Blog({
 	return (
 		<Card
 			className={cn(
-				`border-0 border-b hover:shadow-md shadow-none p-3 flex flex-col gap-3 w-[18rem] ${
+				`border-0 border-b shadow-none p-3 flex flex-col gap-3 w-[18rem] ${
 					!includeImg ? "md:w-full" : "lg:w-full"
 				} lg:flex-row rounded-none`,
 				className
@@ -51,7 +51,7 @@ export default function Blog({
 						alt="img"
 						width={500}
 						height={500}
-						style={{ width: "auto", height: "auto" }}
+						style={{ width: "auto", height: "auto", aspectRatio: 16/9 }}
 						priority
 					/>
 				</div>

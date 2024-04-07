@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import {
 	Form,
 	FormControl,
@@ -19,9 +19,14 @@ import { BeatLoader } from "react-spinners";
 import { updateUser } from "@/actions/user/update";
 import { toast } from "sonner";
 import { Session } from "@auth/core/types";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "@/lib/firebase";
 
 export default function AccountForm({ user }: { user: Session["user"] }) {
+	const [file, setFile] = useState<File | null>(null);
+	const [image, setImage] = useState<string>(user.image ? user.image : "");
 	const [isPending, startTransition] = useTransition();
+	const [progress, setProgress] = useState<number>(0);
 
 	const form = useForm<z.infer<typeof accountFormSchema>>({
 		resolver: zodResolver(accountFormSchema),
@@ -29,10 +34,13 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 			username: user.username || "",
 			name: user.name || "",
 			bio: user.bio || "",
+			avatar: user.image || "",
 		},
 	});
 
 	function onFormSubmit(values: z.infer<typeof accountFormSchema>) {
+		values.avatar = image;
+
 		startTransition(() => {
 			updateUser(values)
 				.then((data) => {
@@ -55,11 +63,45 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 		});
 	}
 
+	useEffect(() => {
+		if (!file) return;
+
+		const localStorageImg = localStorage.getItem("image");
+
+		if (localStorageImg) {
+			const deleteObjectRef = ref(storage, localStorageImg);
+
+			if (deleteObjectRef.toString()) {
+				deleteObject(deleteObjectRef).then().catch();
+			}
+		}
+
+		const storageRef = ref(storage, `files/${file.name}`);
+		const uploadTask = uploadBytesResumable(storageRef, file);
+
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				const percent =
+					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				setProgress(percent);
+			},
+			(error) => alert(error),
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+					setImage(url);
+					localStorage.setItem("image", url);
+					setFile(null);
+				});
+			}
+		);
+	}, [file]);
+
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onFormSubmit)}
-				className="flex flex-col gap-3"
+				className="flex flex-col gap-3 pb-4"
 			>
 				<FormField
 					name="username"
@@ -100,7 +142,7 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 					control={form.control}
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="flex justify-between items-center">
+							<FormLabel>
 								Bio
 							</FormLabel>
 							<FormControl>
@@ -114,6 +156,29 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 						</FormItem>
 					)}
 				/>
+				<FormField
+					name="avatar"
+					control={form.control}
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>
+								Avatar
+							</FormLabel>
+							<FormControl>
+								<Input
+									{...field}
+									type="file"
+									disabled={isPending}
+									onChangeCapture={(e) => {
+										setFile(e.currentTarget.files![0] && e.currentTarget.files![0])
+									}}
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				{image ? <img src={image} alt="profile-img" className="w-[5rem] h-[5rem]" /> : null}
 				<Button
 					className="w-max"
 					disabled={isPending}

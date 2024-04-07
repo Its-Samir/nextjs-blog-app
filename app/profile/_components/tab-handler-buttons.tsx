@@ -10,6 +10,7 @@ export default function TabHandlerButtons() {
 
 	const tabs: { name: string; path: string }[] = [
 		{ name: "Account", path: "account" },
+		{ name: "Posts", path: "posts" },
 		{ name: "Settings", path: "settings" },
 	];
 

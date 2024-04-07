@@ -13,6 +13,8 @@ export default function removeMarkdownTags(markdownText: string) {
 	markdownText = markdownText.replace(/`([^`]+)`/g, "$1");
 	// Remove block code
 	markdownText = markdownText.replace(/```[^]+?```/g, "");
+	// Remove strike through
+	markdownText = markdownText.replace(/\~\~(.*?)\~\~/g, "$1");
 
 	// Remove line breaks and multiple spaces
 	markdownText = markdownText.replace(/\n/g, " ");

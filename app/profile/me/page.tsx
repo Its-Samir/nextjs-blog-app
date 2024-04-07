@@ -1,15 +1,30 @@
 import { auth } from "@/auth";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { MessageCircle, ThumbsUp } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Edit, MessageCircle, ThumbsUp, Trash2 } from "lucide-react";
 import AccountForm from "../_components/account-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Metadata } from "next";
+import DeleteAccountButton from "../_components/delete-account-button";
+import Link from "next/link";
+import UserPost from "../_components/user-post";
+import { getAllBlogs, getBlogsByUserId } from "@/lib/queries/blog";
+import Blog from "@/components/blog/blog";
+
+export const metadata: Metadata = {
+	title: "User Profile",
+};
+
+enum Tabs {
+	ACCOUNT = "account",
+	POSTS = "posts",
+	SETTING = "settings",
+}
 
 interface DashboardPageProps {
 	searchParams: {
-		tab: string;
+		tab: Tabs;
 	};
 }
 
@@ -22,49 +37,50 @@ export default async function DashboardPage({
 		return null;
 	}
 
-	if (tab === "account") {
+	const blog = await getBlogsByUserId(session.user.id!);
+
+	if (tab === Tabs.ACCOUNT) {
 		return <AccountForm user={session.user} />;
 	}
 
-	if (tab === "settings") {
+	if (tab === Tabs.SETTING) {
 		return (
 			<Card className="flex flex-col gap-3 border-none shadow-none">
 				<label>Password</label>
 				<Input defaultValue={"******"} disabled />
-
+				<Button variant={"secondary"} className="w-max">
+					<Link href={"/reset"}>Update Password</Link>
+				</Button>
 				<span>Accout deletion</span>
 				<hr />
-				<Button variant={"destructive"} className="w-max">
-					Delete Account
-				</Button>
+				<DeleteAccountButton userId={session.user.id!} />
+			</Card>
+		);
+	}
+
+	if (tab === Tabs.POSTS) {
+		return (
+			<Card className="border-none">
+				{blog?.map((blog) => (
+					<UserPost
+						key={blog.id}
+						blog={{
+							id: blog.id,
+							category: blog.category,
+							slug: blog.slug,
+							title: blog.title,
+						}}
+					/>
+				))}
 			</Card>
 		);
 	}
 
 	return (
-		<Card className="border-none">
-			<div className="flex justify-between items-center p-4 border-0 border-b">
-				<div className="flex flex-col gap-2">
-					<CardTitle>Lorem ipsum dolor sit.</CardTitle>
-					<CardContent className="flex gap-2 items-center">
-						<Badge className="font-normal">Design</Badge>
-						<span className="flex items-center gap-1 text-slate-500 text-sm">
-							<ThumbsUp size={16} /> 0
-						</span>
-						<span className="flex items-center gap-1 text-slate-500 text-sm">
-							<MessageCircle size={16} /> 0
-						</span>
-					</CardContent>
-				</div>
-				<div
-					className="w-[7rem] h-[7rem] md:w-[5rem] md:h-[5rem]"
-					style={{
-						backgroundImage: `url("/header-image.jpg")`,
-						backgroundSize: "cover",
-						backgroundPosition: "center",
-					}}
-				/>
-			</div>
+		<Card className="border-none flex flex-wrap gap-2">
+			{blog?.map((blog) => (
+				<Blog key={blog.id} {...blog} />
+			))}
 		</Card>
 	);
 }

@@ -15,6 +15,7 @@ const authOptions = NextAuth({
                 session.user.id = token.sub;
                 session.user.name = token.name;
                 session.user.username = token.username;
+                session.user.image = token.image;
                 session.user.emailVerified = token.emailVerified;
                 session.user.bio = token.bio;
             }
@@ -39,8 +40,9 @@ const authOptions = NextAuth({
 
             token.name = user.name;
             token.username = user.username!;
+            token.image = user.image;
             token.emailVerified = user.emailVerified!;
-            token.bio = user.bio!;
+            token.bio = user.bio;
 
             return token;
         },

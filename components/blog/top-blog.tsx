@@ -57,6 +57,7 @@ export default async function TopBlog() {
 						<User
 							username={topBlog.user.username as string}
 							name={topBlog.user.name as string}
+							image={topBlog.user.image as string}
 						/>
 						<div className="flex items-center gap-2 sm:hidden">
 							<Calendar size={12} />

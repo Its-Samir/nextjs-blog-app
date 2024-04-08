@@ -51,7 +51,7 @@ export default function Blog({
 						alt="img"
 						width={500}
 						height={500}
-						style={{ width: "auto", height: "auto", aspectRatio: 16/9 }}
+						style={{ width: "auto", height: "auto", aspectRatio: 16/12 }}
 						priority
 					/>
 				</div>
@@ -81,6 +81,7 @@ export default function Blog({
 					<User
 						username={user.username as string}
 						name={user.name as string}
+						image={user.image as string}
 					/>
 					<Calendar size={12} />
 					<span>{formatTime(createdAt)}</span>

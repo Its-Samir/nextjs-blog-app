@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, unstable_update } from "@/auth";
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { accountFormSchema } from "@/lib/schemas/account-form-schema";
 import { revalidatePath } from "next/cache";
@@ -20,14 +20,15 @@ export async function updateUser(values: z.infer<typeof accountFormSchema>) {
 			return { error: "Not authenticated" };
 		}
 
-		const { username, name, bio } = validationResult.data;
+		const { username, name, bio, avatar } = validationResult.data;
 
-		const updatedUser = await db.user.update({
+		await db.user.update({
 			where: { id: session.user.id },
 			data: {
 				username,
 				name,
 				bio,
+				image: avatar ? avatar : session.user.image,
 			},
 		});
 

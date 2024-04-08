@@ -19,6 +19,7 @@ export default function RecentBlog({
 				<User
 					username={user.username as string}
 					name={user.name as string}
+					image={user.image as string}
 				/>
 				<Dot size={18} />
 				<span className="text-slate-800">

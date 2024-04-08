@@ -19,12 +19,18 @@ import { BeatLoader } from "react-spinners";
 import { updateUser } from "@/actions/user/update";
 import { toast } from "sonner";
 import { Session } from "@auth/core/types";
-import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+	deleteObject,
+	getDownloadURL,
+	ref,
+	uploadBytesResumable,
+} from "firebase/storage";
 import { storage } from "@/lib/firebase";
+import { Progress } from "@/components/ui/progress";
 
 export default function AccountForm({ user }: { user: Session["user"] }) {
 	const [file, setFile] = useState<File | null>(null);
-	const [image, setImage] = useState<string>(user.image ? user.image : "");
+	const [image, setImage] = useState<string>("");
 	const [isPending, startTransition] = useTransition();
 	const [progress, setProgress] = useState<number>(0);
 
@@ -142,9 +148,7 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 					control={form.control}
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>
-								Bio
-							</FormLabel>
+							<FormLabel>Bio</FormLabel>
 							<FormControl>
 								<Input
 									{...field}
@@ -161,16 +165,13 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 					control={form.control}
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>
-								Avatar
-							</FormLabel>
+							<FormLabel>Avatar</FormLabel>
 							<FormControl>
 								<Input
-									{...field}
 									type="file"
-									disabled={isPending}
 									onChangeCapture={(e) => {
-										setFile(e.currentTarget.files![0] && e.currentTarget.files![0])
+										e.currentTarget.files![0] &&
+											setFile(e.currentTarget.files![0]);
 									}}
 								/>
 							</FormControl>
@@ -178,17 +179,20 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 						</FormItem>
 					)}
 				/>
-				{image ? <img src={image} alt="profile-img" className="w-[5rem] h-[5rem]" /> : null}
+				{!image ? <Progress value={progress} /> : null}
+				{image ? (
+					<img
+						src={image}
+						alt="profile-img"
+						className="w-[5rem] h-[5rem]"
+					/>
+				) : null}
 				<Button
 					className="w-max"
 					disabled={isPending}
 					type="submit"
 					children={
-						isPending ? (
-							<BeatLoader color="white" size={8} />
-						) : (
-							"Update"
-						)
+						isPending ? <BeatLoader color="white" size={8} /> : "Update"
 					}
 					size={"lg"}
 				/>

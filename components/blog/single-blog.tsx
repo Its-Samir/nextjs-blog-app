@@ -1,4 +1,11 @@
-import { Dot, Edit, Heart, MessageCircle, ThumbsUp, Trash2 } from "lucide-react";
+import {
+	Dot,
+	Edit,
+	Heart,
+	MessageCircle,
+	ThumbsUp,
+	Trash2,
+} from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { BlogsWithUserAndComments } from "@/types";
@@ -13,10 +20,13 @@ import { auth } from "@/auth";
 import CreateCommentForm from "../comment/create-comment-form";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { likes as likeHandler } from "@/actions/blog/likes";
+import { deleteBlog } from "@/actions/blog/delete";
 
 export default async function SingleBlog({
 	id,
 	title,
+	slug,
 	content,
 	user,
 	image,
@@ -37,6 +47,7 @@ export default async function SingleBlog({
 						<User
 							username={user.username as string}
 							name={user.name as string}
+							image={user.image as string}
 						/>
 						<Dot size={18} />
 						<span className="text-slate-500">Nov 6, 2024</span>
@@ -44,19 +55,39 @@ export default async function SingleBlog({
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
-						<ThumbsUp stroke="black" color="rgb(255, 15, 150)" />
+						<form
+							action={likeHandler.bind(null, user.username!, id)}
+							className="flex items-center"
+						>
+							<button type="submit">
+								<Heart
+									fill={
+										new Set(likes).has(session?.user.id || "")
+											? "rgb(255, 15, 150)"
+											: "white"
+									}
+									color="rgb(255, 15, 150)"
+								/>
+							</button>
+						</form>
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>
 					</div>
-					{session && session.user && session.user.username === user.username ? (
+					{session &&
+					session.user &&
+					session.user.username === user.username ? (
 						<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
 							<Button variant={"secondary"} size={"sm"}>
-								<Edit size={16} />
+								<Link href={`/blogs/${slug}/edit`}>
+									<Edit size={16} />
+								</Link>
 							</Button>
-							<Button variant={"destructive"} size={"sm"}>
-								<Trash2 size={16} />
-							</Button>
+							<form action={deleteBlog.bind(null, id)}>
+								<Button variant={"destructive"} size={"sm"}>
+									<Trash2 size={16} />
+								</Button>
+							</form>
 						</div>
 					) : null}
 				</div>
@@ -66,7 +97,7 @@ export default async function SingleBlog({
 						alt="img"
 						width={500}
 						height={100}
-						style={{ width: "auto", height: "auto", aspectRatio: 16/9 }}
+						style={{ width: "auto", height: "auto", aspectRatio: 16 / 9 }}
 						priority
 					/>
 				</div>
@@ -84,7 +115,21 @@ export default async function SingleBlog({
 					</Link>
 
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
-						<Heart fill="rgb(255, 15, 150)" color="rgb(255, 15, 150)" />
+						<form
+							action={likeHandler.bind(null, user.username!, id)}
+							className="flex items-center"
+						>
+							<button type="submit">
+								<Heart
+									fill={
+										new Set(likes).has(session?.user.id || "")
+											? "rgb(255, 15, 150)"
+											: "white"
+									}
+									color="rgb(255, 15, 150)"
+								/>
+							</button>
+						</form>
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>
@@ -105,6 +150,7 @@ export default async function SingleBlog({
 							<User
 								name={session.user.name!}
 								username={session.user.username}
+								image={session.user.image!}
 							/>
 							<CreateCommentForm blogId={id} />{" "}
 						</>

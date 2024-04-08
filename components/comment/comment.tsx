@@ -23,6 +23,7 @@ export default async function Comment({
 					<User
 						username={comment.user.username as string}
 						name={comment.user.name as string}
+						image={comment.user.image as string}
 					/>
 					<Dot size={12} />
 					<span className="text-slate-600 text-sm">

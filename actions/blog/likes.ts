@@ -30,20 +30,20 @@ export async function likes(username: string, blogId: string) {
 			return { error: "No blog found" };
 		}
 
-		const hasLiked = new Set(blog.likes).has(user.username!);
+		const hasLiked = new Set(blog.likes).has(user.id);
 
 		if (!hasLiked) {
 			blog = await db.blog.update({
 				where: { id: blog.id },
 				data: {
-					likes: { push: user.username! },
+					likes: { push: user.id },
 				},
 			});
 		} else {
 			blog = await db.blog.update({
 				where: { id: blog.id },
 				data: {
-					likes: blog.likes.filter((id) => id !== user.username),
+					likes: blog.likes.filter((id) => id !== user.id),
 				},
 			});
 		}

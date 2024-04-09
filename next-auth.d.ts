@@ -4,6 +4,7 @@ export type ExtendedUser = DefaultSession["user"] & {
 	username: string;
 	emailVerified: Date;
 	bio: string | null;
+	type: string | null;
 };
 
 declare module "next-auth" {
@@ -18,5 +19,6 @@ declare module "@auth/core/jwt" {
 		image: string | null;
 		emailVerified: Date;
 		bio: string | null;
+		type: string | null;
 	}
 }

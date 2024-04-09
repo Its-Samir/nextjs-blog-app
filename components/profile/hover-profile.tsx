@@ -12,11 +12,9 @@ import { BeatLoader } from "react-spinners";
 export default async function HoverProfile({
 	children,
 	username,
-	name,
 }: {
 	children: React.ReactNode;
 	username: string;
-	name: string;
 }) {
 	const user = await getUserByUsername(username);
 	const session = await auth();
@@ -33,9 +31,21 @@ export default async function HoverProfile({
 				<div className="flex items-center justify-between gap-2">
 					<Link href={`/profile/${username}`}>
 						<div className="flex items-center gap-3">
-							<div className="rounded-full h-8 w-8 bg-green-500" />
+							<div className="rounded-full h-8 w-8 bg-slate-400 text-white flex items-center justify-center">
+								{user.image ? (
+									<img
+										src={user.image}
+										alt="user-img"
+										className="w-full h-full rounded-full"
+									/>
+								) : (
+									<span>
+										{user.username?.slice(0, 1).toUpperCase()}
+									</span>
+								)}
+							</div>
 							<div className="flex flex-col text-xs">
-								<span>{name.toUpperCase()}</span>
+								<span>{user.name?.toUpperCase()}</span>
 								<span className="text-slate-500">@{username}</span>
 							</div>
 						</div>
@@ -48,13 +58,8 @@ export default async function HoverProfile({
 				</div>
 
 				<p className="text-slate-600 text-sm sm:text-xs">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Reiciendis ratione a perferendis suscipit. Ad, obcaecati!
+					{user.bio}
 				</p>
-				{/* 
-				<p className="text-slate-600 text-sm sm:text-xs">
-					{user.followers.length} followers
-				</p>				 */}
 			</>
 		);
 	}

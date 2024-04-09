@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
-import type { Account } from "@prisma/client";
+import { Account } from "@prisma/client";
 
-export function getAccountByUserId(userId: string): Promise<Account | null> {
-	return db.account.findFirst({ where: { userId } });
+export function getAccountByUserId(
+	userId: string
+): Promise<Pick<Account, "type"> | null> {
+	return db.account.findFirst({ where: { userId }, select: { type: true } });
 }

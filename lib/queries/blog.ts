@@ -4,7 +4,7 @@ import { Blog } from "@prisma/client";
 
 export async function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
 	const limit = 6;
-	const skip = limit * page - limit;
+	const skip = (limit * page) - limit;
 
 	return db.blog.findMany({
 		include: {

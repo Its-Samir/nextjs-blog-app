@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from '@/lib/db';
 import { authConfig } from '@/auth.config';
 import { getUserById } from '@/lib/queries/user';
+import { getAccountByUserId } from './lib/queries/account';
 
 const authOptions = NextAuth({
     adapter: PrismaAdapter(db),
@@ -18,6 +19,7 @@ const authOptions = NextAuth({
                 session.user.image = token.image;
                 session.user.emailVerified = token.emailVerified;
                 session.user.bio = token.bio;
+                session.user.type = token.type;
             }
 
             return session;
@@ -28,6 +30,8 @@ const authOptions = NextAuth({
             const user = await getUserById(token.sub);
 
             if (!user) return token;
+            
+            const account = await getAccountByUserId(user.id);
 
             if (user.email && !user.username) {
                 await db.user.update({
@@ -43,6 +47,10 @@ const authOptions = NextAuth({
             token.image = user.image;
             token.emailVerified = user.emailVerified!;
             token.bio = user.bio;
+
+            if (account) {
+                token.type = account.type;
+            }
 
             return token;
         },

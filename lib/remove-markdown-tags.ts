@@ -15,6 +15,10 @@ export default function removeMarkdownTags(markdownText: string) {
 	markdownText = markdownText.replace(/```[^]+?```/g, "");
 	// Remove strike through
 	markdownText = markdownText.replace(/\~\~(.*?)\~\~/g, "$1");
+	// Remove link tags
+	markdownText = markdownText.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+	// remove image link tag
+	markdownText = markdownText.replace(/!\[([^\]]+)\]\([^)]+\)/g, "");
 
 	// Remove line breaks and multiple spaces
 	markdownText = markdownText.replace(/\n/g, " ");

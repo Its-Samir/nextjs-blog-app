@@ -37,12 +37,9 @@ export default function Blog({
 }: BlogPropsType) {
 	return (
 		<Card
-			className={cn(
-				`border-0 border-b shadow-none p-3 flex flex-col gap-3 w-[18rem] ${
-					!includeImg ? "md:w-full" : "lg:w-full"
-				} lg:flex-row rounded-none`,
-				className
-			)}
+			className={`border-0 border-b shadow-none p-3 flex flex-col gap-3 w-[18rem] ${
+				!includeImg ? "md:w-full" : "lg:w-full"
+			} lg:flex-row rounded-none`}
 		>
 			{includeImg ? (
 				<div className="w-[100%] lg:w-[40%]">
@@ -51,12 +48,18 @@ export default function Blog({
 						alt="img"
 						width={500}
 						height={500}
-						style={{ width: "auto", height: "auto", aspectRatio: 16/12 }}
+						style={{
+							width: "auto",
+							height: "auto",
+							aspectRatio: 16 / 12,
+						}}
 						priority
 					/>
 				</div>
 			) : null}
-			<div className="flex flex-col gap-3 sm:gap-2">
+			<div
+				className={cn("flex flex-col gap-3 sm:gap-2 lg:w-[66%]", className)}
+			>
 				<div className="flex gap-1 items-center text-sm text-slate-500 sm:text-xs">
 					<Lightbulb size={12} />
 					<span className="text-slate-800">

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { BeatLoader } from "react-spinners";
 
-export default function Home({
+export default async function Home({
 	searchParams: { page },
 }: {
 	searchParams: { page: string };

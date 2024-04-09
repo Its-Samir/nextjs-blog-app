@@ -91,7 +91,7 @@ export default async function SingleBlog({
 						</div>
 					) : null}
 				</div>
-				<div className="w-[25rem] md:w-[45%]">
+				<div className="w-[25rem] md:w-[100%]">
 					<Image
 						src={image as string}
 						alt="img"

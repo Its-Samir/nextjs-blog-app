@@ -80,23 +80,12 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 					/>
 				</div>
 			</Card>
-			<Card className="border-none">
-				<Blog
-					category="Category"
-					content="Testing"
-					title="Test"
-					createdAt={new Date()}
-					id="1"
-					includeImg={false}
-					readingTime="10 min read"
-					slug="test"
-					user={{ username: "Username", name: "User", image: "" }}
-					userId="2"
-					image={""}
-					likes={[]}
-					_count={{ comments: 0 }}
-					updatedAt={new Date()}
-				/>
+			<Card className="border-none shadow-none flex flex-wrap gap-2">
+				{blogs && blogs.length === 0 ? (
+					<span>This user has not written anything yet</span>
+				) : (
+					blogs?.map((blog) => <Blog key={blog.id} {...blog} />)
+				)}
 			</Card>
 		</div>
 	);

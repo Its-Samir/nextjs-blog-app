@@ -15,6 +15,7 @@ export default async function RecentBlogsList() {
 						{...blog}
 						includeImg={false}
 						includeContent={false}
+						className="lg:w-auto"
 					/>
 				))}
 			</div>

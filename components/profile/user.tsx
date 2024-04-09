@@ -12,7 +12,7 @@ export default function User({
 	name: string;
 }) {
 	return (
-		<HoverProfile name={name} username={username}>
+		<HoverProfile username={username}>
 			<div className="flex items-center gap-2 cursor-pointer">
 				<Avatar className="w-6 h-6 text-xs sm:w-5 sm:h-5 rounded-md">
 					<AvatarImage src={image || ""} alt="avatar-img" className="rounded-md" />

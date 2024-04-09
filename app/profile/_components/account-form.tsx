@@ -72,16 +72,6 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 	useEffect(() => {
 		if (!file) return;
 
-		const localStorageImg = localStorage.getItem("image");
-
-		if (localStorageImg) {
-			const deleteObjectRef = ref(storage, localStorageImg);
-
-			if (deleteObjectRef.toString()) {
-				deleteObject(deleteObjectRef).then().catch();
-			}
-		}
-
 		const storageRef = ref(storage, `files/${file.name}`);
 		const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -96,7 +86,6 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
 					setImage(url);
-					localStorage.setItem("image", url);
 					setFile(null);
 				});
 			}

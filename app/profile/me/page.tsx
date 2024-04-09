@@ -35,18 +35,23 @@ export default async function DashboardPage({
 		return null;
 	}
 
-	const blog = await getBlogsByUserId(session.user.id!);
-
 	if (tab === Tabs.ACCOUNT) {
 		return <AccountForm user={session.user} />;
 	}
 
 	if (tab === Tabs.SETTING) {
 		return (
-			<Card className="flex flex-col gap-3 border-none shadow-none">
+			<Card className="flex flex-col gap-3 border-none shadow-none pb-4">
 				<label>Password</label>
 				<Input defaultValue={"******"} disabled />
-				<Button variant={"secondary"} className="w-max">
+				{session.user.type === "oauth" ? (
+					<span children="You have logged in with oauth provider, you cannot change password from here" />
+				) : null}
+				<Button
+					variant={"secondary"}
+					className="w-max"
+					disabled={session.user.type === "oauth"}
+				>
 					<Link href={"/reset"}>Update Password</Link>
 				</Button>
 				<span>Accout deletion</span>
@@ -56,10 +61,18 @@ export default async function DashboardPage({
 		);
 	}
 
+	const blogs = await getBlogsByUserId(session.user.id!);
+
 	if (tab === Tabs.POSTS) {
 		return (
-			<Card className="border-none">
-				{blog?.map((blog) => (
+			<Card className="border-none shadow-none">
+				{blogs && blogs.length === 0 ? (
+					<span>You don't have any post yet.</span>
+				) : (
+					blogs?.map((blog) => <Blog key={blog.id} {...blog} />)
+				)}
+
+				{blogs?.map((blog) => (
 					<UserPost
 						key={blog.id}
 						blog={{
@@ -75,10 +88,12 @@ export default async function DashboardPage({
 	}
 
 	return (
-		<Card className="border-none flex flex-wrap gap-2">
-			{blog?.map((blog) => (
-				<Blog key={blog.id} {...blog} />
-			))}
+		<Card className="border-none shadow-none flex flex-wrap gap-2">
+			{blogs && blogs.length === 0 ? (
+				<span>You haven't written anything yet.</span>
+			) : (
+				blogs?.map((blog) => <Blog key={blog.id} {...blog} />)
+			)}
 		</Card>
 	);
 }

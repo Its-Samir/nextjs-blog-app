@@ -78,8 +78,6 @@ export async function createOrUpdateBlog(
 			});
 		}
 	} catch (error) {
-		console.log(error);
-
 		return { error: "Something went wrong" };
 	}
 

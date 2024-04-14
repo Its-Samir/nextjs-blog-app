@@ -37,9 +37,11 @@ export default function UserPost({
 	}
 
 	return (
-		<div className="flex gap-2 items-center justify-between w-full p-2">
-			<h1 className="text-2xl font-semibold">
-				<Link href={`/blogs/${slug}`}>{title.substring(0, 20)}...</Link>
+		<div className="flex gap-2 items-center justify-between w-full p-2 bg-slate-50">
+			<h1 className="text-2xl sm:text-lg font-semibold">
+				<Link href={`/blogs/${slug}`}>
+					{title.substring(0, 20).trim()}...
+				</Link>
 			</h1>
 			<Badge className="font-normal">
 				{category.slice(0, 1).toUpperCase() + category.slice(1)}

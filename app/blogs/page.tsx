@@ -51,10 +51,12 @@ export default async function BlogsPage({ searchParams }: BlogsPageProp) {
 				fallback={<BeatLoader className="mx-auto" color="#00a5cb" />}
 			>
 				<Blogs searchParams={searchParams} />
-				<Pagination
-					totalBlog={blogCount}
-					page={parseInt(searchParams.page) || 1}
-				/>
+				{!searchParams.category ? (
+					<Pagination
+						totalBlog={blogCount}
+						page={parseInt(searchParams.page) || 1}
+					/>
+				) : null}
 			</Suspense>
 		</>
 	);

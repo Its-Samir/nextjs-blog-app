@@ -56,7 +56,7 @@ export default async function SingleBlog({
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, user.username!, id)}
+							action={likeHandler.bind(null, user.username || "", id)}
 							className="flex items-center"
 						>
 							<button type="submit">
@@ -116,7 +116,7 @@ export default async function SingleBlog({
 
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, user.username!, id)}
+							action={likeHandler.bind(null, user.username || "", id)}
 							className="flex items-center"
 						>
 							<button type="submit">

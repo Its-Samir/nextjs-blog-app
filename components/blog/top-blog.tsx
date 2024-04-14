@@ -42,13 +42,15 @@ export default async function TopBlog() {
 					</div>
 					<CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto">
 						<Link href={`/blogs/${topBlog.slug}`}>
-							{topBlog.title.substring(0, 50)}...
+							{topBlog.title.substring(0, 50).trim()}...
 						</Link>
 					</CardTitle>
 					<CardContent>
 						<CardDescription className="w-[65%] md:w-auto">
 							<Link href={`/blogs/${topBlog.slug}`}>
-								{removeMarkdownTags(topBlog.content).substring(0, 100)}
+								{removeMarkdownTags(topBlog.content)
+									.substring(0, 100)
+									.trim()}
 								...
 							</Link>
 						</CardDescription>

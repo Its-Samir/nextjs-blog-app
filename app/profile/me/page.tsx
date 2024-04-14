@@ -54,7 +54,7 @@ export default async function DashboardPage({
 				>
 					<Link href={"/reset"}>Update Password</Link>
 				</Button>
-				<span>Accout deletion</span>
+				<span>Account deletion</span>
 				<hr />
 				<DeleteAccountButton userId={session.user.id!} />
 			</Card>
@@ -69,20 +69,18 @@ export default async function DashboardPage({
 				{blogs && blogs.length === 0 ? (
 					<span>You don't have any post yet.</span>
 				) : (
-					blogs?.map((blog) => <Blog key={blog.id} {...blog} />)
+					blogs?.map((blog) => (
+						<UserPost
+							key={blog.id}
+							blog={{
+								id: blog.id,
+								category: blog.category,
+								slug: blog.slug,
+								title: blog.title,
+							}}
+						/>
+					))
 				)}
-
-				{blogs?.map((blog) => (
-					<UserPost
-						key={blog.id}
-						blog={{
-							id: blog.id,
-							category: blog.category,
-							slug: blog.slug,
-							title: blog.title,
-						}}
-					/>
-				))}
 			</Card>
 		);
 	}

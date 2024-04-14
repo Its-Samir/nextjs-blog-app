@@ -2,13 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import {
-   AlertDialog,
-   AlertDialogAction,
-   AlertDialogCancel,
-   AlertDialogContent,
-   AlertDialogFooter,
-   AlertDialogTitle,
-   AlertDialogTrigger,
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteUser } from "@/actions/user/delete";
 import { toast } from "sonner";
@@ -43,7 +45,12 @@ export default function DeleteAccountButton({ userId }: { userId: string }) {
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
-				<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+				<AlertDialogHeader>
+					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+					<AlertDialogDescription>
+						This action is not reversible, once you delete your account.
+					</AlertDialogDescription>
+				</AlertDialogHeader>
 				<AlertDialogFooter className="flex-row items-center gap-3 justify-end">
 					<AlertDialogCancel className="m-0">Cancel</AlertDialogCancel>
 					<AlertDialogAction onClick={handleClick}>

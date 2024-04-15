@@ -22,6 +22,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { likes as likeHandler } from "@/actions/blog/likes";
 import { deleteBlog } from "@/actions/blog/delete";
+import { formatTime } from "@/lib/time";
 
 export default async function SingleBlog({
 	id,
@@ -34,6 +35,7 @@ export default async function SingleBlog({
 	likes,
 	comments,
 	readingTime,
+	createdAt,
 }: BlogsWithUserAndComments) {
 	const session = await auth();
 
@@ -50,13 +52,13 @@ export default async function SingleBlog({
 							image={user.image as string}
 						/>
 						<Dot size={18} />
-						<span className="text-slate-500">Nov 6, 2024</span>
+						<span className="text-slate-500">{formatTime(createdAt)}</span>
 						<Dot size={18} />
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, user.username || "", id)}
+							action={likeHandler.bind(null, session?.user.username || "", id)}
 							className="flex items-center"
 						>
 							<button type="submit">
@@ -83,7 +85,7 @@ export default async function SingleBlog({
 									<Edit size={16} />
 								</Link>
 							</Button>
-							<form action={deleteBlog.bind(null, id)}>
+							<form action={deleteBlog.bind(null, id, true)}>
 								<Button variant={"destructive"} size={"sm"}>
 									<Trash2 size={16} />
 								</Button>
@@ -116,7 +118,7 @@ export default async function SingleBlog({
 
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, user.username || "", id)}
+							action={likeHandler.bind(null, session?.user.username || "", id)}
 							className="flex items-center"
 						>
 							<button type="submit">

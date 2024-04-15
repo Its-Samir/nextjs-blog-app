@@ -29,7 +29,7 @@ export async function generateMetadata({
 	}
 
 	return {
-		title: `${user.username}`,
+		title: `@${user.username}`,
 	};
 }
 
@@ -53,7 +53,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 		<div className="w-[40rem] mx-auto md:w-auto">
 			<Card className="flex flex-col gap-4 border-0 border-b shadow-none py-2 rounded-none">
 				<Avatar className="w-[5rem] h-[5rem]">
-					<AvatarImage src="" alt="" />
+					<AvatarImage src={user.image || ""} alt="user-img" />
 					<AvatarFallback>U</AvatarFallback>
 				</Avatar>
 				<div className="flex items-end gap-4 justify-between text-slate-500 ml-2">
@@ -62,8 +62,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 							{user.name?.toUpperCase()}
 						</span>
 						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit.
-							Fugit molestiae dolor odit necessitatibus optio. Fuga?
+							{user.bio}
 						</p>
 						<div className="flex gap-2">
 							<span>

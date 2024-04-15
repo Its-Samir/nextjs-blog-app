@@ -44,6 +44,7 @@ import { Progress } from "@/components/ui/progress";
 import { createOrUpdateBlog } from "@/actions/blog/create-or-update-blog";
 import { toast } from "sonner";
 import { Blog } from "@prisma/client";
+import { BeatLoader } from "react-spinners";
 
 export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [file, setFile] = useState<File | null>(null);
@@ -163,7 +164,13 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 							className="flex items-center gap-1 uppercase"
 							disabled={isPending}
 						>
-							<Plus size={18} /> Create
+							{isPending ? (
+								<BeatLoader color="white" size={8} />
+							) : (
+								<>
+									<Plus size={18} /> Create
+								</>
+							)}
 						</Button>
 					</div>
 					<FormField

@@ -5,13 +5,14 @@ import { db } from "@/lib/db";
 import { storage } from "@/lib/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-export async function deleteBlog(blogId: string) {
+export async function deleteBlog(blogId: string, shouldRedirect?: boolean) {
 	try {
 		const session = await auth();
 
 		if (!session || !session.user) {
-			return { error: "Not authenticatd" };
+			return { error: "Not authenticated" };
 		}
 
 		const blog = await db.blog.findUnique({
@@ -34,4 +35,7 @@ export async function deleteBlog(blogId: string) {
 
 	revalidatePath(`/blogs`);
 	revalidatePath(`/profile/me`);
+
+	shouldRedirect && redirect("/");
+	
 }

@@ -2,7 +2,9 @@
 
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { storage } from "@/lib/firebase";
 import { accountFormSchema } from "@/lib/schemas/account-form-schema";
+import { deleteObject, ref } from "firebase/storage";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -21,6 +23,11 @@ export async function updateUser(values: z.infer<typeof accountFormSchema>) {
 		}
 
 		const { username, name, bio, avatar } = validationResult.data;
+
+		if (avatar !== session.user.image) {			
+			const storageRef = ref(storage, `${session.user.image}`);
+			if (storageRef.toString()) await deleteObject(storageRef);
+		}
 
 		await db.user.update({
 			where: { id: session.user.id },

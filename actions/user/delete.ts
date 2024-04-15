@@ -3,7 +3,6 @@
 import { auth, signOut } from "@/auth";
 import { db } from "@/lib/db";
 import { getUserById } from "@/lib/queries/user";
-import { redirect } from "next/navigation";
 
 export async function deleteUser(userId: string) {
 	try {

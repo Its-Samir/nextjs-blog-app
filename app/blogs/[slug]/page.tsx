@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-	const blogs = await db.blog.findMany();
+	const blogs = await db.blog.findMany({ select: { slug: true } });
 
 	return blogs.map((blog) => ({ slug: blog.slug }));
 }

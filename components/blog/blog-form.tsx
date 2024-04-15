@@ -3,10 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Plus } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { blogFormSchema } from "@/lib/schemas/blog-form-schema";
 import {
@@ -19,17 +18,12 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import {
-	deleteObject,
 	getDownloadURL,
 	ref,
-	uploadBytesResumable,
+	uploadBytesResumable
 } from "firebase/storage";
 import { z } from "zod";
 import dynamic from "next/dynamic";
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-	ssr: false,
-	loading: () => <Loader2 />,
-});
 import "easymde/dist/easymde.min.css";
 import {
 	Form,
@@ -45,6 +39,10 @@ import { createOrUpdateBlog } from "@/actions/blog/create-or-update-blog";
 import { toast } from "sonner";
 import { Blog } from "@prisma/client";
 import { BeatLoader } from "react-spinners";
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+	ssr: false,
+	loading: () => <Loader2 />,
+});
 
 export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [file, setFile] = useState<File | null>(null);

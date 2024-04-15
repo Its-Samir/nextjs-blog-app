@@ -2,17 +2,15 @@ import { auth } from "@/auth";
 import Blog from "@/components/blog/blog";
 import FollowButton from "@/components/follow-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { getBlogsByUserId } from "@/lib/queries/blog";
 import { getUserByUsername } from "@/lib/queries/user";
-import { Lightbulb, MessageCircle, ThumbsUp } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-	const users = await db.user.findMany();
+	const users = await db.user.findMany({ select: { username: true } });
 
 	return users.map((user) => ({ username: user.username }));
 }
@@ -61,9 +59,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 						<span className="text-slate-700 font-semibold">
 							{user.name?.toUpperCase()}
 						</span>
-						<p>
-							{user.bio}
-						</p>
+						<p>{user.bio}</p>
 						<div className="flex gap-2">
 							<span>
 								<b>{user.followers.length}</b> followers

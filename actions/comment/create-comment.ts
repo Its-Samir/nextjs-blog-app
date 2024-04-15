@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { createCommentFormSchema } from "@/lib/schemas/create-comment-schema";
-import IActionsReturn from "@/types";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";

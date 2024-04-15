@@ -1,4 +1,4 @@
-import { Feather, LayoutDashboardIcon, LogOut, User } from "lucide-react";
+import { Feather, LogOut, User } from "lucide-react";
 
 import {
 	DropdownMenu,

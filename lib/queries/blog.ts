@@ -1,10 +1,11 @@
 import { BlogsWithUser } from "@/types";
 import { db } from "@/lib/db";
 import { Blog } from "@prisma/client";
+import { cache } from "react";
 
 export async function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
 	const limit = 6;
-	const skip = (limit * page) - limit;
+	const skip = limit * page - limit;
 
 	return db.blog.findMany({
 		include: {
@@ -113,7 +114,7 @@ export async function getRelatedBlogs(
 	});
 }
 
-export async function getBlogsByUserId(userId: string) {
+export const getBlogsByUserId = cache((userId: string) => {
 	return db.user
 		.findUnique({
 			where: {
@@ -126,4 +127,4 @@ export async function getBlogsByUserId(userId: string) {
 			},
 			include: { user: true },
 		});
-}
+});

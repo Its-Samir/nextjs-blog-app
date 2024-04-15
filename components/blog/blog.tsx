@@ -12,8 +12,6 @@ import Link from "next/link";
 import User from "@/components/profile/user";
 import { formatTime } from "@/lib/time";
 import { cn } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import removeMarkdownTags from "@/lib/remove-markdown-tags";
 
 type BlogPropsType = BlogsWithUser & {

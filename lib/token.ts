@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import type { VerificationToken } from "@prisma/client";
 
 export async function generateVerificationToken(email: string) {
     const token = crypto.randomUUID();

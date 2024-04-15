@@ -2,9 +2,7 @@ import {
 	Dot,
 	Edit,
 	Heart,
-	MessageCircle,
-	ThumbsUp,
-	Trash2,
+	MessageCircle, Trash2
 } from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";

@@ -1,9 +1,4 @@
-import {
-	Dot,
-	Edit,
-	Heart,
-	MessageCircle, Trash2
-} from "lucide-react";
+import { Dot, Edit, Heart, MessageCircle, Trash2 } from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { BlogsWithUserAndComments } from "@/types";
@@ -30,6 +25,7 @@ export default async function SingleBlog({
 	user,
 	image,
 	category,
+	tags,
 	likes,
 	comments,
 	readingTime,
@@ -50,13 +46,19 @@ export default async function SingleBlog({
 							image={user.image as string}
 						/>
 						<Dot size={18} />
-						<span className="text-slate-500">{formatTime(createdAt)}</span>
+						<span className="text-slate-500">
+							{formatTime(createdAt)}
+						</span>
 						<Dot size={18} />
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, session?.user.username || "", id)}
+							action={likeHandler.bind(
+								null,
+								session?.user.username || "",
+								id
+							)}
 							className="flex items-center"
 						>
 							<button type="submit">
@@ -113,10 +115,18 @@ export default async function SingleBlog({
 							#{category}
 						</Button>
 					</Link>
-
+					{tags.map((t) => (
+						<Button className="rounded-full my-4 mx-2" variant={"outline"}>
+							{t}
+						</Button>
+					))}
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
 						<form
-							action={likeHandler.bind(null, session?.user.username || "", id)}
+							action={likeHandler.bind(
+								null,
+								session?.user.username || "",
+								id
+							)}
 							className="flex items-center"
 						>
 							<button type="submit">

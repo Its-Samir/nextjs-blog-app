@@ -72,6 +72,7 @@ export async function createOrUpdateBlog(
 					slug,
 					user: { connect: { id: session.user.id } },
 					readingTime,
+					tags,
 					content,
 					category,
 					image,

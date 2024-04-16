@@ -212,8 +212,8 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 								<FormLabel>Tags</FormLabel>
 								<FormControl>
 									<TagsInput
-										{...field}
-										value={field.value || []}
+										onChange={field.onChange}
+										value={field.value!}
 										maxTags={4}
 										onlyUnique
 									/>

@@ -116,7 +116,7 @@ export default async function SingleBlog({
 						</Button>
 					</Link>
 					{tags.map((t) => (
-						<Button className="rounded-full my-4 mx-2" variant={"outline"}>
+						<Button key={t} className="rounded-full my-4 mx-2" variant={"outline"}>
 							{t}
 						</Button>
 					))}

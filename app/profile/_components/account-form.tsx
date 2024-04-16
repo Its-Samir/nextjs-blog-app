@@ -20,13 +20,13 @@ import { updateUser } from "@/actions/user/update";
 import { toast } from "sonner";
 import { Session } from "@auth/core/types";
 import {
-	deleteObject,
 	getDownloadURL,
 	ref,
-	uploadBytesResumable,
+	uploadBytesResumable
 } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AccountForm({ user }: { user: Session["user"] }) {
 	const [file, setFile] = useState<File | null>(null);
@@ -139,7 +139,7 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 						<FormItem>
 							<FormLabel>Bio</FormLabel>
 							<FormControl>
-								<Input
+								<Textarea
 									{...field}
 									placeholder="Bio"
 									disabled={isPending}

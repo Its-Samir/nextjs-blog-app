@@ -29,7 +29,7 @@ export async function createOrUpdateBlog(
 			return { error: "Not authenticated" };
 		}
 
-		const { title, content, category, image } = validation.data;
+		const { title, content, category, image, tags } = validation.data;
 
 		if (blogData && blogData.id) {
 			if (session.user.id !== blogData.userId) {
@@ -47,6 +47,7 @@ export async function createOrUpdateBlog(
 					...blogData,
 					title,
 					content,
+					tags,
 					image,
 					category,
 				},

@@ -43,6 +43,8 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 	ssr: false,
 	loading: () => <Loader2 />,
 });
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 
 export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [file, setFile] = useState<File | null>(null);
@@ -55,6 +57,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 		defaultValues: {
 			title: blog ? blog.title : "",
 			content: blog ? blog.content : "",
+			tags: blog ? blog.tags : [],
 			image: blog ? blog.image! : "",
 			category: blog ? blog.category : "",
 		},
@@ -115,7 +118,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 					onSubmit={form.handleSubmit(onFormSubmit)}
 					className="flex flex-col gap-3"
 				>
-					<div className="flex justify-between items-center">
+					<div className="flex justify-between">
 						<FormField
 							name="category"
 							control={form.control}
@@ -201,7 +204,24 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 							</FormItem>
 						)}
 					/>
-
+					<FormField
+						name="tags"
+						control={form.control}
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Tags</FormLabel>
+								<FormControl>
+									<TagsInput
+										{...field}
+										value={field.value || []}
+										maxTags={4}
+										onlyUnique
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 					{!blog ? (
 						<FormField
 							name="image"

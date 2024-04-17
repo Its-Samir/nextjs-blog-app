@@ -49,22 +49,30 @@ export default async function NavBar() {
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem>
-						<Feather className="mr-2" size={12} />
-						<Link href={`/blogs/new`}>
+						<Link
+							href={`/blogs/new`}
+							className="flex items-center w-full"
+						>
+							<Feather className="mr-2" size={12} />
 							<span>Write</span>
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem>
-						<User className="mr-2" size={12} />
-						<Link href={`/profile/me`}>
+						<Link
+							href={`/profile/me`}
+							className="flex items-center w-full"
+						>
+							<User className="mr-2" size={12} />
 							<span>Profile</span>
 						</Link>
 					</DropdownMenuItem>
+					<DropdownMenuSeparator />
 					<DropdownMenuItem>
-						<LogOut className="mr-2" size={12} />
-
-						<form action={logOut}>
-							<button type="submit">Sign Out</button>
+						<form action={logOut} className="w-full">
+							<button type="submit" className="flex items-center w-full">
+								<LogOut className="mr-2" size={12} />
+								<span>Sign Out</span>
+							</button>
 						</form>
 					</DropdownMenuItem>
 				</DropdownMenuContent>

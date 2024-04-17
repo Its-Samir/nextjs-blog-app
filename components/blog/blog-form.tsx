@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Loader2, Plus } from "lucide-react";
+import { Edit, Loader2, Plus } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,11 +17,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import {
-	getDownloadURL,
-	ref,
-	uploadBytesResumable
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { z } from "zod";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
@@ -167,6 +163,10 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 						>
 							{isPending ? (
 								<BeatLoader color="white" size={8} />
+							) : blog ? (
+								<>
+									<Edit size={18} /> Update
+								</>
 							) : (
 								<>
 									<Plus size={18} /> Create

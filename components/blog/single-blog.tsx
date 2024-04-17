@@ -94,14 +94,25 @@ export default async function SingleBlog({
 					) : null}
 				</div>
 				<div className="w-[25rem] md:w-[100%]">
-					<Image
-						src={image as string}
-						alt="img"
-						width={500}
-						height={100}
-						style={{ width: "auto", height: "auto", aspectRatio: 16 / 9 }}
-						priority
-					/>
+					{image ? (
+						<Image
+							src={image as string}
+							alt="img"
+							width={500}
+							height={100}
+							style={{
+								width: "auto",
+								height: "auto",
+								aspectRatio: 16 / 9,
+							}}
+							priority
+						/>
+					) : (
+						<div
+							className="animate-pulse bg-slate-400 w-full"
+							style={{ aspectRatio: 16 / 10 }}
+						/>
+					)}
 				</div>
 			</Card>
 			<hr />
@@ -116,7 +127,11 @@ export default async function SingleBlog({
 						</Button>
 					</Link>
 					{tags.map((t) => (
-						<Button key={t} className="rounded-full my-4 mx-2" variant={"outline"}>
+						<Button
+							key={t}
+							className="rounded-full my-4 mx-2"
+							variant={"outline"}
+						>
 							{t}
 						</Button>
 					))}
@@ -151,7 +166,7 @@ export default async function SingleBlog({
 				/>
 			</Card>
 			<Card className="border-none shadow-none my-4">
-				<CardTitle className="my-4 text-slate-600 md:text-lg">
+				<CardTitle className="my-4 text-neutral-800 font-sans md:text-lg">
 					Comments ({comments.length})
 				</CardTitle>
 				<CardContent className="flex flex-col gap-2 items-start my-4">

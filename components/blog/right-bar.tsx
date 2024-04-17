@@ -24,10 +24,7 @@ export default async function RightBar({
 					{blogs.map((blog) => (
 						<SideBarBlog
 							key={blog.id}
-							title={blog.title}
-							slug={blog.slug}
-							category={blog.category}
-							readingTime={blog.readingTime}
+							{...blog}
 						/>
 					))}
 				</Suspense>

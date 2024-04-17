@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { Blog } from "@prisma/client";
 import { cache } from "react";
 
-export async function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
+export function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
 	const limit = 6;
 	const skip = limit * page - limit;
 
@@ -23,9 +23,7 @@ export async function getAllBlogs(page: number): Promise<BlogsWithUser[]> {
 	});
 }
 
-export async function getBlogsByCategory(
-	category: string
-): Promise<BlogsWithUser[]> {
+export function getBlogsByCategory(category: string): Promise<BlogsWithUser[]> {
 	return db.blog.findMany({
 		where: {
 			category: category,
@@ -38,9 +36,7 @@ export async function getBlogsByCategory(
 	});
 }
 
-export async function getBlogsBySearchQuery(
-	query: string
-): Promise<BlogsWithUser[]> {
+export function getBlogsBySearchQuery(query: string): Promise<BlogsWithUser[]> {
 	return db.blog.findMany({
 		where: {
 			OR: [
@@ -57,7 +53,7 @@ export async function getBlogsBySearchQuery(
 	});
 }
 
-export async function getTopBlog(): Promise<BlogsWithUser[]> {
+export function getTopBlog(): Promise<BlogsWithUser[]> {
 	return db.blog.findMany({
 		orderBy: {
 			comments: {
@@ -73,7 +69,7 @@ export async function getTopBlog(): Promise<BlogsWithUser[]> {
 	});
 }
 
-export async function getRecentBlogs(): Promise<BlogsWithUser[]> {
+export function getRecentBlogs(): Promise<BlogsWithUser[]> {
 	return db.blog.findMany({
 		orderBy: {
 			createdAt: "desc",
@@ -87,32 +83,26 @@ export async function getRecentBlogs(): Promise<BlogsWithUser[]> {
 	});
 }
 
-export async function getTrendingBlogs(): Promise<BlogsWithUser[]> {
+export function getTrendingBlogs() {
 	return db.blog.findMany({
 		orderBy: {
 			likes: "desc",
-		},
-		include: {
-			user: {
-				select: { username: true, name: true, image: true },
-			},
 		},
 		take: 3,
 	});
 }
 
-export async function getRelatedBlogs(
-	currblogId: string,
-	category: string
-): Promise<Blog[]> {
-	return db.blog.findMany({
-		where: {
-			category,
-			NOT: [{ id: currblogId }],
-		},
-		take: 3,
-	});
-}
+export const getRelatedBlogs = cache(
+	(currblogId: string, category: string): Promise<Blog[]> => {
+		return db.blog.findMany({
+			where: {
+				category,
+				NOT: [{ id: currblogId }],
+			},
+			take: 3,
+		});
+	}
+);
 
 export const getBlogsByUserId = cache((userId: string) => {
 	return db.user

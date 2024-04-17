@@ -7,7 +7,7 @@ export default async function RecentBlogsList() {
 
 	return (
 		<div className="flex flex-col flex-wrap gap-3">
-			<h1 className="text-2xl text-slate-600 my-4">Recent Blogs</h1>
+			<h1 className="text-2xl text-neutral-800 font-sans font-bold my-4">Recent Blogs</h1>
 			<div className="flex flex-wrap gap-3">
 				{blogs.map((blog) => (
 					<Blog

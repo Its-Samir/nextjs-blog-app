@@ -32,8 +32,8 @@ export default async function TopBlog() {
 				</div>
 				<div className="flex flex-[3] flex-col gap-3 md:gap-2">
 					<div className="flex gap-1 items-center text-sm text-slate-500">
-						<Lightbulb size={12} />
-						<span className="text-slate-800">
+						<Lightbulb size={12} absoluteStrokeWidth />
+						<span className="text-slate-500 font-sans font-bold">
 							{topBlog.category.slice(0, 1).toUpperCase() +
 								topBlog.category.slice(1)}
 						</span>
@@ -55,14 +55,14 @@ export default async function TopBlog() {
 							</Link>
 						</CardDescription>
 					</CardContent>
-					<CardFooter className="p-0 flex-wrap gap-2 text-slate-500 text-sm">
+					<CardFooter className="p-0 flex-wrap gap-2 text-slate-600 text-sm">
 						<User
 							username={topBlog.user.username as string}
 							name={topBlog.user.name as string}
 							image={topBlog.user.image as string}
 						/>
 						<div className="flex items-center gap-2 sm:hidden">
-							<Calendar size={12} />
+							<Calendar size={12} absoluteStrokeWidth />
 							<span>Nov 7, 2023</span>
 						</div>
 					</CardFooter>

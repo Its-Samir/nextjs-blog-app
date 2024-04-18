@@ -58,9 +58,9 @@ export default function Blog({
 			<div
 				className={cn("flex flex-col gap-3 sm:gap-2 lg:w-[66%]", className)}
 			>
-				<div className="flex gap-1 items-center text-sm text-slate-500 sm:text-xs">
-					<Lightbulb size={12} />
-					<span className="text-slate-800">
+				<div className="flex gap-1 items-center text-sm text-slate-600 sm:text-xs">
+					<Lightbulb size={12} absoluteStrokeWidth />
+					<span className="text-slate-500 font-sans font-bold">
 						{category.slice(0, 1).toUpperCase() + category.slice(1)}
 					</span>
 					<Dot size={18} />
@@ -80,13 +80,13 @@ export default function Blog({
 						</CardDescription>
 					</CardContent>
 				) : null}
-				<CardFooter className="p-0 gap-2 text-slate-500 text-sm sm:text-xs">
+				<CardFooter className="p-0 gap-2 text-slate-600 text-sm sm:text-xs">
 					<User
 						username={user.username as string}
 						name={user.name as string}
 						image={user.image as string}
 					/>
-					<Calendar size={12} />
+					<Calendar size={12} absoluteStrokeWidth />
 					<span>{formatTime(createdAt)}</span>
 				</CardFooter>
 			</div>

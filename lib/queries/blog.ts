@@ -118,3 +118,16 @@ export const getBlogsByUserId = cache((userId: string) => {
 			include: { user: true },
 		});
 });
+
+export const getFollowersBlogs = async (userId: string) => {
+	const user = await db.user.findUnique({
+		where: { id: userId },
+		select: { followers: true },
+	});
+
+	return db.blog.findMany({
+		where: {
+			userId: { in: user?.followers },
+		},
+	});
+};

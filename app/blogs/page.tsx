@@ -10,8 +10,10 @@ import {
 } from "@/lib/queries/blog";
 import { BlogsWithUser } from "@/types";
 import { Suspense } from "react";
-import { BeatLoader } from "react-spinners";
+import { BarLoader } from "react-spinners";
 import { Metadata } from "next";
+import RightBar from "@/components/blog/right-bar";
+import { getTrendingBlogs } from "@/lib/queries/blog";
 
 export const metadata: Metadata = {
 	title: "Get latest blogs",
@@ -47,16 +49,20 @@ export default async function BlogsPage({ searchParams }: BlogsPageProp) {
 		<>
 			<SearchBar />
 			<CategoryTabs />
-			<Suspense
-				fallback={<BeatLoader className="mx-auto" color="#00a5cb" />}
-			>
-				<Blogs searchParams={searchParams} />
-				{!searchParams.category && !searchParams.search ? (
-					<Pagination
-						totalBlog={blogCount}
-						page={parseInt(searchParams.page) || 1}
-					/>
-				) : null}
+
+			<Suspense fallback={<BarLoader className="mx-auto" color="#00a5cb" />}>
+				<div className="flex md:flex-wrap mt-4">
+					<div className="flex flex-col flex-[3]">
+						<Blogs searchParams={searchParams} />
+						{!searchParams.category && !searchParams.search ? (
+							<Pagination
+								totalBlog={blogCount}
+								page={parseInt(searchParams.page) || 1}
+							/>
+						) : null}
+					</div>
+					<RightBar getBlogs={getTrendingBlogs} heading="Trending" />
+				</div>
 			</Suspense>
 		</>
 	);

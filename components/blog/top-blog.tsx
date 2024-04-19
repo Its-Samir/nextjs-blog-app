@@ -17,7 +17,9 @@ export default async function TopBlog() {
 
 	return (
 		<>
-			<h1 className="text-2xl text-neutral-800 font-sans font-bold my-4">Top blog</h1>
+			<h1 className="text-2xl sm:text-xl text-neutral-800 font-sans font-bold mt-2">
+				Top blog
+			</h1>
 
 			<Card className="rounded-none border-0 border-b shadow-none flex gap-4 p-3 md:flex-col">
 				<div className="w-[22rem] flex-1 md:w-[12rem]">

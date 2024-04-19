@@ -16,6 +16,7 @@ import remarkGfm from "remark-gfm";
 import { likes as likeHandler } from "@/actions/blog/likes";
 import { deleteBlog } from "@/actions/blog/delete";
 import { formatTime } from "@/lib/time";
+import AuthModal from "../auth/auth-modal";
 
 export default async function SingleBlog({
 	id,
@@ -32,6 +33,43 @@ export default async function SingleBlog({
 	createdAt,
 }: BlogsWithUserAndComments) {
 	const session = await auth();
+
+	let likeButtonContent: React.ReactNode;
+
+	if (!session || !session.user) {
+		likeButtonContent = (
+			<AuthModal>
+				<button type="submit">
+					<Heart
+						fill={
+							new Set(likes).has(session?.user.id || "")
+								? "rgb(255, 15, 150)"
+								: "white"
+						}
+						color="rgb(255, 15, 150)"
+					/>
+				</button>
+			</AuthModal>
+		);
+	} else if (session && session.user) {
+		likeButtonContent = (
+			<form
+				action={likeHandler.bind(null, session?.user.username || "", id)}
+				className="flex items-center"
+			>
+				<button type="submit">
+					<Heart
+						fill={
+							new Set(likes).has(session?.user.id || "")
+								? "rgb(255, 15, 150)"
+								: "white"
+						}
+						color="rgb(255, 15, 150)"
+					/>
+				</button>
+			</form>
+		);
+	}
 
 	return (
 		<>
@@ -53,25 +91,7 @@ export default async function SingleBlog({
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
-						<form
-							action={likeHandler.bind(
-								null,
-								session?.user.username || "",
-								id
-							)}
-							className="flex items-center"
-						>
-							<button type="submit">
-								<Heart
-									fill={
-										new Set(likes).has(session?.user.id || "")
-											? "rgb(255, 15, 150)"
-											: "white"
-									}
-									color="rgb(255, 15, 150)"
-								/>
-							</button>
-						</form>
+						{likeButtonContent}
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>
@@ -136,25 +156,7 @@ export default async function SingleBlog({
 						</Button>
 					))}
 					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
-						<form
-							action={likeHandler.bind(
-								null,
-								session?.user.username || "",
-								id
-							)}
-							className="flex items-center"
-						>
-							<button type="submit">
-								<Heart
-									fill={
-										new Set(likes).has(session?.user.id || "")
-											? "rgb(255, 15, 150)"
-											: "white"
-									}
-									color="rgb(255, 15, 150)"
-								/>
-							</button>
-						</form>
+						{likeButtonContent}
 						<span>{likes.length}</span>
 						<MessageCircle />
 						<span>{comments.length}</span>

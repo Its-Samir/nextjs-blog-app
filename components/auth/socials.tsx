@@ -20,9 +20,6 @@ export default function Socials() {
 				>
 					Github
 				</Button>
-				<Button variant={"outline"} className="p-4 border flex-1">
-					Google
-				</Button>
 			</Card>
 		</>
 	);

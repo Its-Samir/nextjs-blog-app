@@ -22,6 +22,19 @@ export async function deleteUser(userId: string) {
 			return { error: "Unauthorized" };
 		}
 
+		const users = await db.user.findMany({
+			where: { followers: { has: user.id } },
+		});
+
+		users.forEach((u) => {
+			db.user.update({
+				where: { id: u.id },
+				data: {
+					followers: u.followers.filter((id) => id != user.id),
+				},
+			});
+		});
+
 		await db.user.delete({ where: { id: user.id } });
 
 	} catch (error) {

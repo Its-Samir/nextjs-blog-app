@@ -7,7 +7,7 @@ import { Blog } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function likes(username: string, blogId: string) {
-	let blog: Blog | null;
+	let blog: Pick<Blog, "id" | "likes" | "slug"> | null;
 
 	try {
 		const session = await auth();
@@ -24,6 +24,7 @@ export async function likes(username: string, blogId: string) {
 
 		blog = await db.blog.findUnique({
 			where: { id: blogId },
+			select: { id: true, slug: true, likes: true },
 		});
 
 		if (!blog) {
@@ -47,7 +48,6 @@ export async function likes(username: string, blogId: string) {
 				},
 			});
 		}
-
 	} catch (error) {
 		return { error: "Something went wrong" };
 	}

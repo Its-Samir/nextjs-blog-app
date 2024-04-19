@@ -12,7 +12,7 @@ export async function CreateComment(
 	blogId: string,
 	parentId?: string
 ) {
-	let blog: Blog | null;
+	let blog: Pick<Blog, "id" | "slug"> | null;
 
 	try {
 		const validation = createCommentFormSchema.safeParse(values);
@@ -31,6 +31,7 @@ export async function CreateComment(
 
 		blog = await db.blog.findUnique({
 			where: { id: blogId },
+			select: { id: true, slug: true },
 		});
 
 		if (!blog) {

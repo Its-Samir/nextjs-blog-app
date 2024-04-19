@@ -17,6 +17,7 @@ export async function deleteBlog(blogId: string, shouldRedirect?: boolean) {
 
 		const blog = await db.blog.findUnique({
 			where: { id: blogId },
+			select: { id: true, image: true },
 		});
 
 		if (!blog) {
@@ -37,5 +38,4 @@ export async function deleteBlog(blogId: string, shouldRedirect?: boolean) {
 	revalidatePath(`/profile/me`);
 
 	shouldRedirect && redirect("/");
-	
 }

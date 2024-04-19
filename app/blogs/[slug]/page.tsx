@@ -16,12 +16,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const blog = await db.blog.findUnique({
 		where: { slug: params.slug },
-		include: {
-			user: {
-				select: { name: true, username: true, image: true },
-			},
-			comments: true,
-		},
+		select: { title: true, content: true },
 	});
 
 	if (!blog) {

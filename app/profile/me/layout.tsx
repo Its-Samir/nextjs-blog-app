@@ -18,7 +18,7 @@ export default async function DashboardLayout({
 		<div className="w-[40rem] mx-auto md:w-auto">
 			<Card className="flex flex-col gap-4 border-0 border-b shadow-none py-2 rounded-none">
 				<Avatar className="w-[5rem] h-[5rem]">
-					<AvatarImage src={session.user.image || ""} alt="" />
+					<AvatarImage src={session.user.image || ""} alt="user-img" />
 					<AvatarFallback>
 						{session.user.username.slice(0, 1).toUpperCase()}
 					</AvatarFallback>

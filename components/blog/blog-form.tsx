@@ -41,6 +41,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 });
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
+import Image from "next/image";
 
 export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [file, setFile] = useState<File | null>(null);
@@ -255,7 +256,13 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 				</form>
 				<div className="mt-[0.5rem]">
 					{image ? (
-						<img src={image} alt="img" width={"100%"} />
+						<Image
+							src={image}
+							alt="img"
+							width={500}
+							height={500}
+							style={{ width: "auto", height: "auto" }}
+						/>
 					) : (
 						<Progress value={progress} />
 					)}

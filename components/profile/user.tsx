@@ -22,7 +22,7 @@ export default function User({
 				</Avatar>
 				<Link href={`/profile/${username}`}>
 					{" "}
-					<span>{name.toUpperCase()}</span>
+					<span>@{username.substring(0, 6)}{username.length > 6 ? "..." : ""}</span>
 				</Link>
 			</div>
 		</HoverProfile>

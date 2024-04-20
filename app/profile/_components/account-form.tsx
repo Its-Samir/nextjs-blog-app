@@ -23,6 +23,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 
 export default function AccountForm({ user }: { user: Session["user"] }) {
 	const [file, setFile] = useState<File | null>(null);
@@ -166,11 +167,15 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 				/>
 				{!image ? <Progress value={progress} /> : null}
 				{image ? (
-					<img
-						src={image}
-						alt="profile-img"
-						className="w-[5rem] h-[5rem]"
-					/>
+					<div className="w-24 h-24">
+						<Image
+							src={image}
+							alt="profile-img"
+							style={{ width: "auto", height: "auto" }}
+							width={500}
+							height={500}
+						/>
+					</div>
 				) : null}
 				<Button
 					className="w-max"

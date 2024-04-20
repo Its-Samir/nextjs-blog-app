@@ -84,11 +84,10 @@ export default function CreateCommentForm({
 					className="w-max"
 					disabled={isPending}
 					type="submit"
-					children={
-						isPending ? <BeatLoader color="white" size={8} /> : "Done"
-					}
 					size={"sm"}
-				/>
+				>
+					{isPending ? <BeatLoader color="white" size={8} /> : "Done"}
+				</Button>
 			</form>
 		</Form>
 	);

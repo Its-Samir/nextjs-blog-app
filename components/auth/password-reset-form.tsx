@@ -73,10 +73,11 @@ export default function PasswordResetForm({ token }: { token: string }) {
 								<FormLabel className="flex justify-between items-center">
 									<span>Password</span>
 									<div
-										children={showPassword ? "Hide" : "Show"}
 										onClick={() => setShowPassword((p) => !p)}
 										className="cursor-pointer text-black"
-									/>
+									>
+										{showPassword ? "Hide" : "Show"}
+									</div>
 								</FormLabel>
 								<FormControl>
 									<Input
@@ -95,15 +96,14 @@ export default function PasswordResetForm({ token }: { token: string }) {
 						className="w-full"
 						disabled={isPending}
 						type="submit"
-						children={
-							isPending ? (
-								<BeatLoader color="white" size={8} />
-							) : (
-								"Change Password"
-							)
-						}
 						size={"lg"}
-					/>
+					>
+						{isPending ? (
+							<BeatLoader color="white" size={8} />
+						) : (
+							"Change Password"
+						)}
+					</Button>
 				</form>
 			</Form>
 		</Wrapper>

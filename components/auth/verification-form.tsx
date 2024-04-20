@@ -10,28 +10,28 @@ export default function VerificationForm({ token }: { token: string }) {
 	const [isPending, startTransition] = useTransition();
 	const [status, setStatus] = useState({ success: false, message: "" });
 
-	function verify() {
-		startTransition(() => {
-			verifyEmail(token)
-				.then((data) => {
-					if (data.error) {
-						setStatus({ message: data.error, success: false });
-					} else if (data.success) {
-						setStatus({ message: data.success, success: true });
-					}
-				})
-				.catch((err) => {
-					setStatus({
-						message: err.message || "Something went wrong",
-						success: false,
-					});
-				});
-		});
-	}
-
 	useEffect(() => {
+		function verify() {
+			startTransition(() => {
+				verifyEmail(token)
+					.then((data) => {
+						if (data.error) {
+							setStatus({ message: data.error, success: false });
+						} else if (data.success) {
+							setStatus({ message: data.success, success: true });
+						}
+					})
+					.catch((err) => {
+						setStatus({
+							message: err.message || "Something went wrong",
+							success: false,
+						});
+					});
+			});
+		}
 		verify();
-	}, []);
+
+	}, [token]);
 
 	return (
 		<Wrapper

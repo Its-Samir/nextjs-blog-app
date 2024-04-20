@@ -45,7 +45,10 @@ export default async function DashboardPage({
 				<label>Password</label>
 				<Input defaultValue={"******"} disabled />
 				{session.user.type === "oauth" ? (
-					<span children="You have logged in with oauth provider, you cannot change password from here" />
+					<span>
+						You have logged in with oauth provider, you cannot change
+						password from here
+					</span>
 				) : null}
 				<Button
 					variant={"secondary"}
@@ -67,7 +70,7 @@ export default async function DashboardPage({
 		return (
 			<Card className="border-none shadow-none">
 				{blogs && blogs.length === 0 ? (
-					<span>You don't have any post yet.</span>
+					<span>You don&apos;t have any post yet.</span>
 				) : (
 					blogs?.map((blog) => (
 						<UserPost
@@ -88,7 +91,7 @@ export default async function DashboardPage({
 	return (
 		<Card className="border-none shadow-none flex flex-wrap gap-2">
 			{blogs && blogs.length === 0 ? (
-				<span>You haven't written anything yet.</span>
+				<span>You haven&apos;t written anything yet.</span>
 			) : (
 				blogs?.map((blog) => <Blog key={blog.id} {...blog} />)
 			)}

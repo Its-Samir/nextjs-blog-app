@@ -85,15 +85,14 @@ export default function ResetForm() {
 						className="w-full"
 						disabled={isPending}
 						type="submit"
-						children={
-							isPending ? (
-								<BeatLoader color="white" size={8} />
-							) : (
-								"Confirm"
-							)
-						}
 						size={"lg"}
-					/>
+					>
+						{isPending ? (
+							<BeatLoader color="white" size={8} />
+						) : (
+							"Confirm"
+						)}
+					</Button>
 				</form>
 			</Form>
 		</Wrapper>

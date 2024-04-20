@@ -19,11 +19,7 @@ import { BeatLoader } from "react-spinners";
 import { updateUser } from "@/actions/user/update";
 import { toast } from "sonner";
 import { Session } from "@auth/core/types";
-import {
-	getDownloadURL,
-	ref,
-	uploadBytesResumable
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
@@ -180,11 +176,10 @@ export default function AccountForm({ user }: { user: Session["user"] }) {
 					className="w-max"
 					disabled={isPending}
 					type="submit"
-					children={
-						isPending ? <BeatLoader color="white" size={8} /> : "Update"
-					}
 					size={"lg"}
-				/>
+				>
+					{isPending ? <BeatLoader color="white" size={8} /> : "Update"}
+				</Button>
 			</form>
 		</Form>
 	);

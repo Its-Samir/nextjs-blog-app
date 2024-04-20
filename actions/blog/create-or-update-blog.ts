@@ -1,5 +1,6 @@
 "use server";
 
+import crypto from "node:crypto";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { storage } from "@/lib/firebase";
@@ -56,7 +57,7 @@ export async function createOrUpdateBlog(
 			const slug = `${title
 				.split(" ")
 				.join("-")
-				.toLowerCase()}-${crypto.randomUUID()}`;
+				.toLowerCase()}-${crypto.randomBytes(6).toString('hex')}`;
 
 			/* assuming reading speed 200 words per minute */
 			const readingTime =

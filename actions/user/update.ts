@@ -24,7 +24,11 @@ export async function updateUser(values: z.infer<typeof accountFormSchema>) {
 
 		const { username, name, bio, avatar } = validationResult.data;
 
-		if (avatar !== session.user.image) {			
+		if (
+			session.user.image &&
+			avatar !== session.user.image &&
+			!session.user.image.startsWith("https://avatars.githubusercontent")
+		) {
 			const storageRef = ref(storage, `${session.user.image}`);
 			if (storageRef.toString()) await deleteObject(storageRef);
 		}
@@ -38,7 +42,6 @@ export async function updateUser(values: z.infer<typeof accountFormSchema>) {
 				image: avatar ? avatar : session.user.image,
 			},
 		});
-
 	} catch (error) {
 		return { error: "Something went wrong" };
 	}

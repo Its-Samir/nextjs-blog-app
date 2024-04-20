@@ -19,15 +19,16 @@ export default async function RightBar({
 	return (
 		<div className={cn("flex-1 md:flex-auto md:w-full", className)}>
 			<div className="sticky top-[100px]">
-				<h1 className="text-lg">{heading}</h1>
-				<Suspense fallback={<p>Loading...</p>}>
-					{blogs.map((blog) => (
-						<SideBarBlog
-							key={blog.id}
-							{...blog}
-						/>
-					))}
-				</Suspense>
+				{blogs.length === 0 ? null : (
+					<>
+						<h1 className="text-lg">{heading}</h1>
+						<Suspense fallback={<p>Loading...</p>}>
+							{blogs.map((blog) => (
+								<SideBarBlog key={blog.id} {...blog} />
+							))}
+						</Suspense>
+					</>
+				)}
 			</div>
 		</div>
 	);

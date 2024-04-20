@@ -13,7 +13,7 @@ export default async function CommentList({ getComments }: CommentListProps) {
 		const childComments = await getCommentsByParentId(comment.id);
 
 		return (
-			<Suspense>
+			<Suspense key={comment.id}>
 				<Comment key={comment.id} comment={comment} />
 				{childComments.map(async (c) => {
 					return <Comment key={c.id} comment={c} childComment />;

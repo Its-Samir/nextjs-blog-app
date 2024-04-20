@@ -98,10 +98,11 @@ export default function LoginForm() {
 								<FormLabel className="flex justify-between items-center">
 									<span>Password</span>
 									<div
-										children={showPassword ? "Hide" : "Show"}
 										onClick={() => setShowPassword((p) => !p)}
 										className="cursor-pointer text-black"
-									/>
+									>
+										{showPassword ? "Hide" : "Show"}
+									</div>
 								</FormLabel>
 								<FormControl>
 									<Input
@@ -127,11 +128,10 @@ export default function LoginForm() {
 						className="w-full"
 						disabled={isPending}
 						type="submit"
-						children={
-							isPending ? <BeatLoader color="white" size={8} /> : "Login"
-						}
 						size={"lg"}
-					/>
+					>
+						{isPending ? <BeatLoader color="white" size={8} /> : "Login"}
+					</Button>
 				</form>
 			</Form>
 		</Wrapper>

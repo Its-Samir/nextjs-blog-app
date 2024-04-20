@@ -42,7 +42,7 @@ export async function follow(userId: string, currentUserId: string) {
 				where: { id: user.id },
 				data: {
 					followers: {
-						set: user.followers.filter((id) => id !== currentUser.id),
+						set: user.followers.filter((id) => id !== currentUser!.id),
 					},
 				},
 			});

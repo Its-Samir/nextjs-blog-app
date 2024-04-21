@@ -41,6 +41,7 @@ export default async function SingleBlog({
 			<AuthModal>
 				<button type="submit">
 					<Heart
+						size={18}
 						fill={
 							new Set(likes).has(session?.user.id || "")
 								? "rgb(255, 15, 150)"
@@ -59,6 +60,7 @@ export default async function SingleBlog({
 			>
 				<button type="submit">
 					<Heart
+						size={18}
 						fill={
 							new Set(likes).has(session?.user.id || "")
 								? "rgb(255, 15, 150)"
@@ -73,9 +75,11 @@ export default async function SingleBlog({
 
 	return (
 		<>
-			<Card className="rounded-none border-none p-3 shadow-none flex gap-4 md:flex-wrap mt-[1rem] justify-between">
+			<Card className="rounded-none border-none p-3 font-sans shadow-none flex gap-4 md:flex-wrap mt-[1rem] justify-between">
 				<div className="flex flex-col gap-5 md:gap-3 w-[40rem]">
-					<CardTitle className="text-4xl md:text-xl">{title}</CardTitle>
+					<CardTitle className="text-4xl font-bold md:text-xl">
+						{title}
+					</CardTitle>
 					<span className="textsm sm:text-xs">Written by -</span>
 					<div className="flex items-center gap-2 sm:text-xs flex-wrap">
 						<User
@@ -90,10 +94,10 @@ export default async function SingleBlog({
 						<Dot size={18} />
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
-					<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
+					<div className="flex gap-2 items-center text-slate-600 sm:text-sm">
 						{likeButtonContent}
 						<span>{likes.length}</span>
-						<MessageCircle />
+						<MessageCircle size={18} />
 						<span>{comments.length}</span>
 					</div>
 					{session &&
@@ -102,12 +106,12 @@ export default async function SingleBlog({
 						<div className="flex gap-3 items-center text-slate-500 sm:text-sm">
 							<Button variant={"secondary"} size={"sm"}>
 								<Link href={`/blogs/${slug}/edit`}>
-									<Edit size={16} />
+									<Edit size={18} />
 								</Link>
 							</Button>
 							<form action={deleteBlog.bind(null, id, true)}>
 								<Button variant={"destructive"} size={"sm"}>
-									<Trash2 size={16} />
+									<Trash2 size={18} />
 								</Button>
 							</form>
 						</div>
@@ -141,24 +145,31 @@ export default async function SingleBlog({
 					<ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
 						{content}
 					</ReactMarkdown>
-					<Link href={`/blogs?category=${category}`}>
-						<Button className="rounded-full my-4" variant={"outline"}>
-							#{category}
-						</Button>
-					</Link>
-					{tags.map((t) => (
-						<Button
-							key={t}
-							className="rounded-full my-4 mx-2"
-							variant={"outline"}
-						>
-							{t}
-						</Button>
-					))}
-					<div className="flex gap-3 items-center text-slate-500 my-5 sm:text-sm">
+					<div className="flex flex-wrap items-center gap-2">
+						<Link href={`/blogs?category=${category}`}>
+							<Button
+								size={"sm"}
+								className="rounded-full"
+								variant={"outline"}
+							>
+								#{category}
+							</Button>
+						</Link>
+						{tags.map((t) => (
+							<Button
+								key={t}
+								size={"sm"}
+								className="rounded-full"
+								variant={"outline"}
+							>
+								{t}
+							</Button>
+						))}
+					</div>
+					<div className="flex gap-2 items-center text-slate-600 my-5 sm:text-sm">
 						{likeButtonContent}
 						<span>{likes.length}</span>
-						<MessageCircle />
+						<MessageCircle size={18} />
 						<span>{comments.length}</span>
 					</div>
 				</div>

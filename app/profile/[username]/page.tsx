@@ -54,8 +54,8 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 					<AvatarImage src={user.image || ""} alt="user-img" />
 					<AvatarFallback>U</AvatarFallback>
 				</Avatar>
-				<div className="flex items-end gap-4 justify-between font-sans text-slate-500 ml-2">
-					<div className="flex flex-col gap-2 justify-end">
+				<div className="flex items-end justify-between font-sans text-slate-500 ml-2">
+					<div className="flex flex-col gap-1 justify-end">
 						<span className="text-slate-700 font-semibold">
 							{user.name?.toUpperCase()}
 						</span>
@@ -63,7 +63,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProp) {
 							@{user.username?.toLowerCase()}
 						</span>
 						<p>{user.bio}</p>
-						<div className="flex gap-2">
+						<div className="flex gap-2 mt-2">
 							<span>
 								<b>{user.followers.length}</b> followers
 							</span>

@@ -6,7 +6,7 @@ import { Blog } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function deleteComment(commentId: string) {
-	let blog: Pick<Blog, "slug"> | null;
+	let blog: Pick<Blog, "userId" | "slug"> | null;
 
 	try {
 		const session = await auth();
@@ -17,7 +17,7 @@ export async function deleteComment(commentId: string) {
 
 		const comment = await db.comment.findUnique({
 			where: { id: commentId },
-			select: { id: true, blogId: true },
+			select: { id: true, blogId: true, userId: true },
 		});
 
 		if (!comment) {
@@ -26,11 +26,26 @@ export async function deleteComment(commentId: string) {
 
 		blog = await db.blog.findUnique({
 			where: { id: comment.blogId },
-			select: { slug: true },
+			select: { slug: true, userId: true },
 		});
 
-		await db.comment.delete({ where: { id: comment.id } });
+		if (!blog) {
+			return { error: "No blog found" };
+		}
 
+		if (
+			session.user.id !== comment.userId &&
+			session.user.id !== blog.userId
+		) {
+			return { error: "Unauthorized" };
+		}
+
+		if (
+			session.user.id === comment.userId ||
+			session.user.id === blog.userId
+		) {
+			await db.comment.delete({ where: { id: comment.id } });
+		}
 	} catch (error) {
 		return { error: "Something went wrong" };
 	}

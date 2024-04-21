@@ -66,9 +66,9 @@ export default function Blog({
 					<Dot size={18} />
 					<span>{readingTime}</span>
 				</div>
-				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800">
+				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800 text-ellipsis overflow-hidden w-full md:w-[15rem] whitespace-nowrap">
 					<Link href={`/blogs/${slug}`}>
-						{title.substring(0, 45).trim()}...
+						{title}
 					</Link>
 				</CardTitle>
 				{includeContent ? (

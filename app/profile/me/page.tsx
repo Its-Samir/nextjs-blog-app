@@ -43,7 +43,7 @@ export default async function DashboardPage({
 		return (
 			<Card className="flex flex-col gap-3 border-none shadow-none pb-4">
 				<label>Password</label>
-				<Input defaultValue={"******"} disabled />
+				<Input defaultValue={"▪▪▪▪▪▪"} disabled />
 				{session.user.type === "oauth" ? (
 					<span>
 						You have logged in with oauth provider, you cannot change

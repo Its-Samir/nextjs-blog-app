@@ -1,16 +1,18 @@
 import { Blog } from "@prisma/client";
 import { Card, CardFooter, CardTitle } from "../ui/card";
-import { Lightbulb, ThumbsUp } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import Link from "next/link";
 
-type BlogData = Pick<Blog, "category" | "slug" | "title" | "readingTime" | "likes">;
+type BlogData = Pick<Blog, "category" | "slug" | "title" | "likes"> & {
+	comments: number;
+};
 
 export default function SideBarBlog({
 	title,
 	slug,
 	category,
-	readingTime,
-	likes
+	likes,
+	comments,
 }: BlogData) {
 	return (
 		<Card className="w-full shadow-none text-slate-700 p-3 flex flex-col gap-2 rounded-none border-0 border-l-blue-500 border-l border-b my-2">
@@ -24,8 +26,14 @@ export default function SideBarBlog({
 				<Link href={`/blogs/${slug}`}>{title}</Link>
 			</CardTitle>
 			<CardFooter className="p-0 gap-1 text-sm sm:text-xs">
-				<ThumbsUp size={12} absoluteStrokeWidth />
+				<span className="px-2 bg-slate-100 text-neutral-800 font-sans rounded-sm">
+					Likes
+				</span>
 				<span>{likes.length}</span>
+				<span className="px-2 bg-slate-100 text-neutral-800 font-sans rounded-sm">
+					Comments
+				</span>
+				<span>{comments}</span>
 			</CardFooter>
 		</Card>
 	);

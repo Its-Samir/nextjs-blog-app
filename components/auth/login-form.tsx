@@ -108,7 +108,7 @@ export default function LoginForm() {
 									<Input
 										{...field}
 										type={showPassword ? "text" : "password"}
-										placeholder="******"
+										placeholder="▪▪▪▪▪▪"
 										disabled={isPending}
 									/>
 								</FormControl>
@@ -118,7 +118,7 @@ export default function LoginForm() {
 					/>
 
 					<span className="text-slate-700">
-						<Link href={"/reset"}>forget password?</Link>
+						<Link href={"/reset"}>forgot password?</Link>
 					</span>
 					<FormStatus
 						message={status.message || oAuthError}

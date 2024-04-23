@@ -92,21 +92,21 @@ export const getTrendingBlogs = cache(() => {
 		orderBy: {
 			likes: "desc",
 		},
+		include: { _count: { select: { comments: true } } },
 		take: 3,
 	});
 });
 
-export const getRelatedBlogs = cache(
-	(currblogId: string, category: string): Promise<Blog[]> => {
-		return db.blog.findMany({
-			where: {
-				category,
-				NOT: [{ id: currblogId }],
-			},
-			take: 3,
-		});
-	}
-);
+export const getRelatedBlogs = cache((currblogId: string, category: string) => {
+	return db.blog.findMany({
+		where: {
+			category,
+			NOT: [{ id: currblogId }],
+		},
+		include: { _count: { select: { comments: true } } },
+		take: 3,
+	});
+});
 
 export const getBlogsByUserId = cache((userId: string) => {
 	return db.user

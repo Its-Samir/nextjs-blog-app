@@ -117,7 +117,7 @@ export default function RegisterForm() {
 									<Input
 										{...field}
 										type={showPassword ? "text" : "password"}
-										placeholder="******"
+										placeholder="▪▪▪▪▪▪"
 										disabled={isPending}
 									/>
 								</FormControl>

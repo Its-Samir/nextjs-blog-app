@@ -2,6 +2,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import TabHandlerButtons from "../_components/tab-handler-buttons";
 import { auth } from "@/auth";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "User Profile",
+};
 
 export default async function DashboardLayout({
 	children,

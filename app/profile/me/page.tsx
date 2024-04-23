@@ -3,16 +3,11 @@ import { Card } from "@/components/ui/card";
 import AccountForm from "../_components/account-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Metadata } from "next";
 import DeleteAccountButton from "../_components/delete-account-button";
 import Link from "next/link";
 import UserPost from "../_components/user-post";
 import { getBlogsByUserId } from "@/lib/queries/blog";
 import Blog from "@/components/blog/blog";
-
-export const metadata: Metadata = {
-	title: "User Profile",
-};
 
 enum Tabs {
 	ACCOUNT = "account",

@@ -28,8 +28,8 @@ export default async function DashboardLayout({
 						{session.user.username.slice(0, 1).toUpperCase()}
 					</AvatarFallback>
 				</Avatar>
-				<div className="flex items-end gap-4 justify-between font-sans text-slate-500">
-					<div className="flex flex-col gap-2 justify-end">
+				<div className="flex items-end gap-4 justify-between font-sans text-slate-500 ml-2">
+					<div className="flex flex-col gap-1 justify-end">
 						<span className="text-slate-700 font-semibold">
 							{session.user.name!.toUpperCase()}
 						</span>

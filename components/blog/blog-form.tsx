@@ -29,6 +29,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { randomBytes } from "crypto";
 import { storage } from "@/lib/firebase";
 import { Progress } from "@/components/ui/progress";
 import { createOrUpdateBlog } from "@/actions/blog/create-or-update-blog";
@@ -88,7 +89,10 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 	useEffect(() => {
 		if (!file) return;
 
-		const storageRef = ref(storage, `files/${file.name}`);
+		const storageRef = ref(
+			storage,
+			`files/${file.name}-${randomBytes(6).toString("hex")}`
+		);
 		const uploadTask = uploadBytesResumable(storageRef, file);
 
 		uploadTask.on(

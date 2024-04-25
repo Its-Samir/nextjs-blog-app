@@ -78,7 +78,7 @@ export default async function Home({
 					<RightBar getBlogs={getTrendingBlogs} heading="Trending" />
 				</div>
 			</Suspense>
-			<Link href={"/blogs"}>
+			<Link href={"/blogs"} className="w-max">
 				<Button className="flex items-center gap-1 rounded-full my-4">
 					See more <Forward />
 				</Button>

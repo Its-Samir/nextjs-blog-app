@@ -89,15 +89,15 @@ export default async function NavBar() {
 				<Link href={"/"}>LOGO</Link>
 			</h1>
 			<ul className="flex item-center justify-between gap-4 md:hidden">
-				<NavLink path={"/"}>
-					<li>Home</li>
-				</NavLink>
-				<NavLink path={"/blogs"}>
-					<li>Blogs</li>
-				</NavLink>
-				<NavLink path={"/about"}>
-					<li>About</li>
-				</NavLink>
+				<li>
+					<NavLink path={"/"}>Home</NavLink>
+				</li>
+				<li>
+					<NavLink path={"/blogs"}>Blogs</NavLink>
+				</li>
+				<li>
+					<NavLink path={"/about"}>About</NavLink>
+				</li>
 			</ul>
 			{authContent}
 		</nav>

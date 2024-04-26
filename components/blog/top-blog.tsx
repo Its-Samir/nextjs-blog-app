@@ -40,11 +40,13 @@ export default async function TopBlog() {
 								topBlog.category.slice(1)}
 						</span>
 						<Dot size={18} />
-						<span>{topBlog.readingTime}</span>
+						<span className="bg-slate-200 text-neutral-800 rounded-sm px-2">
+							{topBlog.readingTime}
+						</span>
 					</div>
-					<CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto font-sans font-bold">
+					<CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto font-sans font-bold text-ellipsis overflow-hidden whitespace-nowrap">
 						<Link href={`/blogs/${topBlog.slug}`}>
-							{topBlog.title.substring(0, 50).trim()}...
+							{topBlog.title}
 						</Link>
 					</CardTitle>
 					<CardContent>
@@ -53,7 +55,6 @@ export default async function TopBlog() {
 								{removeMarkdownTags(topBlog.content)
 									.substring(0, 100)
 									.trim()}
-								...
 							</Link>
 						</CardDescription>
 					</CardContent>
@@ -63,7 +64,7 @@ export default async function TopBlog() {
 							name={topBlog.user.name as string}
 							image={topBlog.user.image as string}
 						/>
-						<div className="flex items-center gap-2 sm:hidden">
+						<div className="flex items-center gap-2">
 							<Calendar size={12} absoluteStrokeWidth />
 							<span>Nov 7, 2023</span>
 						</div>

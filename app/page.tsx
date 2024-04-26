@@ -26,7 +26,7 @@ export default async function Home() {
 
 		const user = await getUserById(session.user.id!);
 
-		if (user && user.followings.length > 0) {
+		if (user && user.followings.length > 0 && blogs.length > 0) {
 			followersBlogContent = (
 				<div className="flex flex-col gap-2 my-4">
 					<div className="text-neutral-800 font-bold font-sans text-2xl sm:text-xl">

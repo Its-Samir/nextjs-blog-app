@@ -6,6 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "User Profile",
+	description: "The dashboard section where you can manage your account.",
 };
 
 export default async function DashboardLayout({

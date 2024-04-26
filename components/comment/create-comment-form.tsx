@@ -22,9 +22,11 @@ import { toast } from "sonner";
 export default function CreateCommentForm({
 	blogId,
 	parentId,
+	disabled = false
 }: {
 	blogId: string;
 	parentId?: string;
+	disabled?: boolean;
 }) {
 	const [isPending, startTransition] = useTransition();
 
@@ -61,7 +63,7 @@ export default function CreateCommentForm({
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onFormSubmit)}
-				className="flex flex-col gap-3 w-full"
+				className="flex flex-col gap-3 w-[30rem] md:w-full"
 			>
 				<FormField
 					name="text"
@@ -73,7 +75,7 @@ export default function CreateCommentForm({
 								<Textarea
 									{...field}
 									placeholder={`Write here`}
-									disabled={isPending}
+									disabled={isPending || disabled}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -82,7 +84,7 @@ export default function CreateCommentForm({
 				/>
 				<Button
 					className="w-max"
-					disabled={isPending}
+					disabled={isPending || disabled}
 					type="submit"
 					size={"sm"}
 				>

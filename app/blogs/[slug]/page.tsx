@@ -4,9 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-	const blogs = await db.blog.findMany({ select: { slug: true } });
-
-	return blogs.map((blog) => ({ slug: blog.slug }));
+	return await db.blog.findMany({ select: { slug: true } });
 }
 
 export async function generateMetadata({
@@ -25,7 +23,7 @@ export async function generateMetadata({
 
 	return {
 		title: blog.title,
-		description: blog.content,
+		description: blog.content.substring(0, 150),
 	};
 }
 

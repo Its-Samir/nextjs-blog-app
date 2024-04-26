@@ -58,13 +58,13 @@ export default function Blog({
 			<div
 				className={cn("flex flex-col gap-3 sm:gap-2 lg:w-[66%]", className)}
 			>
-				<div className="flex gap-1 items-center text-sm text-slate-600 sm:text-xs">
+				<div className="flex gap-1 items-center font-sans text-sm text-slate-600 sm:text-xs">
 					<Lightbulb size={12} absoluteStrokeWidth />
-					<span className="text-slate-500 font-sans font-bold">
+					<span className="text-slate-500 font-bold">
 						{category.slice(0, 1).toUpperCase() + category.slice(1)}
 					</span>
 					<Dot size={18} />
-					<span>{readingTime}</span>
+					<span className="bg-slate-100 text-neutral-800 rounded-sm px-2">{readingTime}</span>
 				</div>
 				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800 text-ellipsis overflow-hidden w-full md:w-[15rem] whitespace-nowrap">
 					<Link href={`/blogs/${slug}`}>

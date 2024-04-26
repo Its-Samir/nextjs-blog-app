@@ -192,7 +192,14 @@ export default async function SingleBlog({
 							/>
 							<CreateCommentForm blogId={id} />{" "}
 						</>
-					) : null}
+					) : (
+						<>
+							<span className="text-slate-700 text-lg font-sans font-semibold">
+								Login to write your comment about this post.
+							</span>
+							<CreateCommentForm disabled blogId={id} />{" "}
+						</>
+					)}
 				</CardContent>
 				<CommentList getComments={() => getCommentsByBlogId(id)} />
 			</Card>

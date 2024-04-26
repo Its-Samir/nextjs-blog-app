@@ -25,12 +25,12 @@ export default function SideBarBlog({
 			<CardTitle className="text-neutral-600 text-lg sm:text-base font-sans font-bold">
 				<Link href={`/blogs/${slug}`}>{title}</Link>
 			</CardTitle>
-			<CardFooter className="p-0 gap-1 text-sm sm:text-xs">
-				<span className="px-2 bg-slate-100 text-neutral-800 font-sans rounded-sm">
+			<CardFooter className="p-0 gap-1 text-neutral-800 font-sans text-sm sm:text-xs">
+				<span className="px-2 bg-slate-100 rounded-sm">
 					Likes
 				</span>
 				<span>{likes.length}</span>
-				<span className="px-2 bg-slate-100 text-neutral-800 font-sans rounded-sm">
+				<span className="px-2 bg-slate-100 rounded-sm">
 					Comments
 				</span>
 				<span>{comments}</span>

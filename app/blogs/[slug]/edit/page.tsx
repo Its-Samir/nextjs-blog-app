@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
 	title: "Edit Blog",
+	description: "Edit your blog here",
 };
 
 export async function generateStaticParams() {

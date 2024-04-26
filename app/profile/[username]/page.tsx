@@ -28,6 +28,7 @@ export async function generateMetadata({
 
 	return {
 		title: `@${user.username}`,
+		description: `Profile of ${user.username}, see written posts of the user.`,
 	};
 }
 

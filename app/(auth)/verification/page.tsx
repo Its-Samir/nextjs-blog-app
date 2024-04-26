@@ -5,6 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Email Verification",
+	description: "verify your email",
 };
 
 interface VerificationPageProps {

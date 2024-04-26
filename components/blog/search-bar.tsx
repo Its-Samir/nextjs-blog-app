@@ -24,7 +24,7 @@ export default function SearchBar() {
 
 	return (
 		<form action={action}>
-			<div className="my-4 flex items-center justify-center border p-2 rounded-md">
+			<div className="my-4 flex items-center justify-center border p-2 rounded-md text-slate-500">
 				<Search />
 				<Input
 					name="query"

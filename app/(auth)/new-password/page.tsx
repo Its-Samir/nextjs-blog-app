@@ -5,6 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Change your password",
+	description: "Set a new password",
 };
 
 interface PasswordResetPageProps {

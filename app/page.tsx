@@ -16,11 +16,7 @@ import { auth } from "@/auth";
 import Blog from "@/components/blog/blog";
 import { getUserById } from "@/lib/queries/user";
 
-export default async function Home({
-	searchParams: { page },
-}: {
-	searchParams: { page: string };
-}) {
+export default async function Home() {
 	const session = await auth();
 
 	let followersBlogContent: React.ReactNode = null;
@@ -71,9 +67,7 @@ export default async function Home({
 			<Suspense fallback={<BeatLoader color="#00a5cb" />}>
 				<div className="flex md:flex-wrap-reverse mt-4">
 					<div className="flex flex-[3] lg:flex-0 flex-wrap">
-						<BlogsList
-							getBlogs={() => getAllBlogs(parseInt(page) || 1)}
-						/>
+						<BlogsList getBlogs={() => getAllBlogs(1)} />
 					</div>
 					<RightBar getBlogs={getTrendingBlogs} heading="Trending" />
 				</div>

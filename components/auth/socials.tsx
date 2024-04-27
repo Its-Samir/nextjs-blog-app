@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 export default function Socials() {
 	return (
@@ -16,8 +17,15 @@ export default function Socials() {
 				<Button
 					onClick={() => signIn("github", { callbackUrl: "/" })}
 					variant={"outline"}
-					className="p-4 border flex-1"
+					className="p-4 border flex-1 flex items-center gap-1"
 				>
+					<Image
+						src={"/github.png"}
+						alt="github-img"
+						width={16}
+						height={16}
+						style={{ height: "auto", width: "auto" }}
+					/>
 					Github
 				</Button>
 			</Card>

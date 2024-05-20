@@ -41,5 +41,5 @@ export async function register(
 		return { error: "Something went wrong" };
 	}
 
-	redirect("/login");
+	return redirect("/login");
 }

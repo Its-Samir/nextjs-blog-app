@@ -37,7 +37,7 @@ export default function Like({
 				onClick={() => {
 					action((prev) =>
 						new Set(hearts).has(session?.data.user.id || "")
-							? [...prev]
+							? prev.filter((id) => id !== session.data.user.id!)
 							: [...prev, session.data.user.id!]
 					);
 				}}

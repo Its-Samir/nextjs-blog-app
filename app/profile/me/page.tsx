@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import DeleteAccountButton from "../_components/delete-account-button";
 import Link from "next/link";
-import UserPost from "../_components/user-post";
 import { getBlogsByUserId } from "@/lib/queries/blog";
 import Blog from "@/components/blog/blog";
+import UserPostList from "../_components/user-post-list";
 
 enum Tabs {
 	ACCOUNT = "account",
@@ -62,25 +62,7 @@ export default async function DashboardPage({
 	const blogs = await getBlogsByUserId(session.user.id!);
 
 	if (tab === Tabs.POSTS) {
-		return (
-			<Card className="border-none shadow-none">
-				{blogs && blogs.length === 0 ? (
-					<span>You don&apos;t have any post yet.</span>
-				) : (
-					blogs?.map((blog) => (
-						<UserPost
-							key={blog.id}
-							blog={{
-								id: blog.id,
-								category: blog.category,
-								slug: blog.slug,
-								title: blog.title,
-							}}
-						/>
-					))
-				)}
-			</Card>
-		);
+		return <UserPostList blogs={blogs || []} />;
 	}
 
 	return (

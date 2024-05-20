@@ -48,7 +48,7 @@ export default function FollowButton({
 				size={"sm"}
 				variant={followed ? "outline" : "default"}
 				className={`rounded-full ${
-					isFollowing ? "hover:bg-red-400 hover:text-white" : ""
+					followed ? "hover:bg-red-400 hover:text-white" : ""
 				}`}
 				onClick={() => {
 					handleClick();

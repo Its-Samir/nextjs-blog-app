@@ -84,5 +84,5 @@ export async function createOrUpdateBlog(
 	}
 
 	revalidatePath("/");
-	return redirect(`/blogs/${blog!.slug}`);
+	redirect(`/blogs/${blog!.slug}`);
 }

@@ -66,7 +66,7 @@ export async function deleteUser(userId: string) {
 		return { error: "Something went wrong" };
 	}
 
-	await signOut({
+	return await signOut({
 		redirectTo: "/register",
 	});
 }

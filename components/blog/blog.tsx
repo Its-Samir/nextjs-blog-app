@@ -68,8 +68,10 @@ export default function Blog({
 						{readingTime}
 					</span>
 				</div>
-				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800 text-ellipsis overflow-hidden w-full whitespace-nowrap">
-					<Link href={`/blogs/${slug}`}>{title}</Link>
+				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800">
+					<Link href={`/blogs/${slug}`}>
+						{title.substring(0, 40).trim()}...
+					</Link>
 				</CardTitle>
 				{includeContent ? (
 					<CardContent>

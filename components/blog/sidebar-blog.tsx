@@ -23,7 +23,9 @@ export default function SideBarBlog({
 				</span>
 			</div>
 			<CardTitle className="text-neutral-600 text-lg sm:text-base font-sans font-bold">
-				<Link href={`/blogs/${slug}`}>{title}</Link>
+				<Link href={`/blogs/${slug}`}>
+					{title.substring(0, 80).trim()}...
+				</Link>
 			</CardTitle>
 			<CardFooter className="p-0 gap-1 text-neutral-800 font-sans text-sm sm:text-xs">
 				<span className="px-2 bg-slate-200 rounded-sm">Likes</span>

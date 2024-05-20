@@ -125,11 +125,7 @@ export default async function SingleBlog({
 							</Button>
 						))}
 					</div>
-					<div className="flex gap-2 items-center text-slate-600 my-5 sm:text-sm">
-						<Like blogId={id} likes={likes} />
-						<MessageCircle size={18} />
-						<span>{comments.length}</span>
-					</div>
+					<hr className="my-2" />
 				</div>
 				<RightBar
 					getBlogs={() => getRelatedBlogs(id, category)}

@@ -64,10 +64,9 @@ export async function deleteUser(userId: string) {
 		await db.user.delete({ where: { id: user.id } });
 	} catch (error) {
 		return { error: "Something went wrong" };
-	} finally {
-		await signOut({
-			redirectTo: "/register",
-		});
 	}
-	return { message: "User deleted" };
+
+	await signOut({
+		redirectTo: "/register",
+	});
 }

@@ -1,4 +1,4 @@
-import { Dot, Edit, Heart, MessageCircle, Trash2 } from "lucide-react";
+import { Dot, Edit, MessageCircle, Trash2 } from "lucide-react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { BlogsWithUserAndComments } from "@/types";
@@ -13,10 +13,9 @@ import { auth } from "@/auth";
 import CreateCommentForm from "../comment/create-comment-form";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { likes as likeHandler } from "@/actions/blog/likes";
 import { deleteBlog } from "@/actions/blog/delete";
 import { formatTime } from "@/lib/time";
-import AuthModal from "../auth/auth-modal";
+import Like from "./likes";
 
 export default async function SingleBlog({
 	id,
@@ -33,45 +32,6 @@ export default async function SingleBlog({
 	createdAt,
 }: BlogsWithUserAndComments) {
 	const session = await auth();
-
-	let likeButtonContent: React.ReactNode;
-
-	if (!session || !session.user) {
-		likeButtonContent = (
-			<AuthModal>
-				<button type="submit">
-					<Heart
-						size={18}
-						fill={
-							new Set(likes).has(session?.user.id || "")
-								? "rgb(255, 15, 150)"
-								: "white"
-						}
-						color="rgb(255, 15, 150)"
-					/>
-				</button>
-			</AuthModal>
-		);
-	} else if (session && session.user) {
-		likeButtonContent = (
-			<form
-				action={likeHandler.bind(null, session?.user.username || "", id)}
-				className="flex items-center"
-			>
-				<button type="submit">
-					<Heart
-						size={18}
-						fill={
-							new Set(likes).has(session?.user.id || "")
-								? "rgb(255, 15, 150)"
-								: "white"
-						}
-						color="rgb(255, 15, 150)"
-					/>
-				</button>
-			</form>
-		);
-	}
 
 	return (
 		<>
@@ -95,8 +55,7 @@ export default async function SingleBlog({
 						<span className="text-slate-500">{readingTime}</span>
 					</div>
 					<div className="flex gap-2 items-center text-slate-600 sm:text-sm">
-						{likeButtonContent}
-						<span>{likes.length}</span>
+						<Like blogId={id} likes={likes} />
 						<MessageCircle size={18} />
 						<span>{comments.length}</span>
 					</div>
@@ -167,8 +126,7 @@ export default async function SingleBlog({
 						))}
 					</div>
 					<div className="flex gap-2 items-center text-slate-600 my-5 sm:text-sm">
-						{likeButtonContent}
-						<span>{likes.length}</span>
+						<Like blogId={id} likes={likes} />
 						<MessageCircle size={18} />
 						<span>{comments.length}</span>
 					</div>

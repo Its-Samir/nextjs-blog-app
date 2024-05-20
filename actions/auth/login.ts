@@ -53,7 +53,7 @@ export async function login(values: z.infer<typeof loginFormSchema>) {
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
-	} finally {
-		redirect(redirectUrl);
 	}
+
+	redirect(redirectUrl);
 }

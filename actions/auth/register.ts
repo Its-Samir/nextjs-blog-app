@@ -39,7 +39,7 @@ export async function register(
 		});
 	} catch (error: unknown) {
 		return { error: "Something went wrong" };
-	} finally {
-		redirect("/login");
 	}
+
+	redirect("/login");
 }

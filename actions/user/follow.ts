@@ -58,8 +58,9 @@ export async function follow(userId: string, currentUserId: string) {
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
-	} finally {
-		revalidatePath(`/profile/${user!.username}`);
 	}
+
+	revalidatePath(`/profile/${user!.username}`);
+
 	return { message: "Success" };
 }

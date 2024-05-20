@@ -81,8 +81,8 @@ export async function createOrUpdateBlog(
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
-	} finally {
-		revalidatePath("/");
-		redirect(`/blogs/${blog!.slug}`);
 	}
+
+	revalidatePath("/");
+	redirect(`/blogs/${blog!.slug}`);
 }

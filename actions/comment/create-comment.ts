@@ -66,8 +66,9 @@ export async function CreateComment(
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
-	} finally {
-		revalidatePath(`/blogs/${blog!.slug}`);
 	}
-	return {message: "Comment created"};
+
+	revalidatePath(`/blogs/${blog!.slug}`);
+
+	return { message: "Comment created" };
 }

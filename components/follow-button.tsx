@@ -6,6 +6,7 @@ import AuthModal from "./auth/auth-modal";
 import { useTransition } from "react";
 import { follow } from "@/actions/user/follow";
 import { BeatLoader } from "react-spinners";
+import { useOptimistic } from "react";
 
 export default function FollowButton({
 	content,
@@ -18,6 +19,7 @@ export default function FollowButton({
 }) {
 	const session = useSession();
 	const [isPending, startTransition] = useTransition();
+	const [followed, action] = useOptimistic(isFollowing);
 
 	const handleClick = () => {
 		startTransition(() => {
@@ -48,10 +50,15 @@ export default function FollowButton({
 				className={`rounded-full ${
 					isFollowing ? "hover:bg-red-400 hover:text-white" : ""
 				}`}
-				onClick={handleClick}
+				onClick={() => {
+					handleClick();
+					action((prev) => {
+						return !prev;
+					});
+				}}
 				disabled={isPending}
 			>
-				{isFollowing ? "Unfollow" : content}
+				{followed ? "Unfollow" : content}
 			</Button>
 		);
 	}

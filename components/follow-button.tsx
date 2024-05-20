@@ -56,7 +56,6 @@ export default function FollowButton({
 						return !prev;
 					});
 				}}
-				disabled={isPending}
 			>
 				{followed ? "Unfollow" : content}
 			</Button>

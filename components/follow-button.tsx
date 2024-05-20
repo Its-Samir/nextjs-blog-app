@@ -46,7 +46,7 @@ export default function FollowButton({
 		buttonContent = (
 			<Button
 				size={"sm"}
-				variant={isFollowing ? "outline" : "default"}
+				variant={followed ? "outline" : "default"}
 				className={`rounded-full ${
 					isFollowing ? "hover:bg-red-400 hover:text-white" : ""
 				}`}

@@ -48,13 +48,12 @@ export async function login(values: z.infer<typeof loginFormSchema>) {
 				redirectTo: "/",
 				redirect: false,
 			});
-
 		} catch (error) {
 			return { error: "Failed to signed in, Try again later" };
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		redirect(redirectUrl);
 	}
-
-	redirect(redirectUrl);
 }

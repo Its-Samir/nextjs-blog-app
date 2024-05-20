@@ -44,7 +44,8 @@ export async function updateUser(values: z.infer<typeof accountFormSchema>) {
 		});
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		revalidatePath("/profile/me", "layout");
 	}
-
-	revalidatePath("/profile/me", "layout");
+	return { message: "User updated" };
 }

@@ -54,10 +54,9 @@ export async function createOrUpdateBlog(
 				},
 			});
 		} else {
-			const slug = `${title
-				.split(" ")
-				.join("-")
-				.toLowerCase()}-${crypto.randomBytes(6).toString('hex')}`;
+			const slug = `${title.split(" ").join("-").toLowerCase()}-${crypto
+				.randomBytes(6)
+				.toString("hex")}`.replaceAll(":", "-");
 
 			/* assuming reading speed 200 words per minute */
 			const readingTime =
@@ -82,8 +81,8 @@ export async function createOrUpdateBlog(
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		revalidatePath("/");
+		redirect(`/blogs/${blog!.slug}`);
 	}
-
-	revalidatePath("/");
-	redirect(`/blogs/${blog.slug}`);
 }

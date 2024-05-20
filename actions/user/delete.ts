@@ -28,28 +28,33 @@ export async function deleteUser(userId: string) {
 			where: { followers: { has: user.id } },
 		});
 
-		users.length > 0 && users.forEach(async (u) => {
-			await db.user.update({
-				where: { id: u.id },
-				data: {
-					followers: { set: u.followers.filter((id) => id != user.id) },
-				},
+		users.length > 0 &&
+			users.forEach(async (u) => {
+				await db.user.update({
+					where: { id: u.id },
+					data: {
+						followers: { set: u.followers.filter((id) => id != user.id) },
+					},
+				});
 			});
-		});
 
 		const blogs = await db.blog.findMany({
 			where: { userId: user.id },
 			select: { image: true },
 		});
 
-		blogs.length > 0 && blogs.forEach(async (blog) => {
-			const storageRefForBlogImg = ref(storage, `${blog.image}`);
-			if (storageRefForBlogImg.toString()) {
-				await deleteObject(storageRefForBlogImg);
-			}
-		});
+		blogs.length > 0 &&
+			blogs.forEach(async (blog) => {
+				const storageRefForBlogImg = ref(storage, `${blog.image}`);
+				if (storageRefForBlogImg.toString()) {
+					await deleteObject(storageRefForBlogImg);
+				}
+			});
 
-		if (user.image && !user.image.startsWith("https://avatars.githubusercontent")) {
+		if (
+			user.image &&
+			!user.image.startsWith("https://avatars.githubusercontent")
+		) {
 			const storageRefUserAvatar = ref(storage, `${user.image}`);
 			if (storageRefUserAvatar.toString()) {
 				await deleteObject(storageRefUserAvatar);
@@ -59,9 +64,10 @@ export async function deleteUser(userId: string) {
 		await db.user.delete({ where: { id: user.id } });
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		await signOut({
+			redirectTo: "/register",
+		});
 	}
-
-	await signOut({
-		redirectTo: "/register",
-	});
+	return { message: "User deleted" };
 }

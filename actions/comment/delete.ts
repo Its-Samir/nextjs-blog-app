@@ -48,7 +48,8 @@ export async function deleteComment(commentId: string) {
 		}
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		revalidatePath(`/blogs/${blog!.slug}`);
 	}
-
-	revalidatePath(`/blogs/${blog!.slug}`);
+	return { message: "Comment deleted" };
 }

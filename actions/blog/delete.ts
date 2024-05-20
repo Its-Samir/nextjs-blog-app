@@ -32,10 +32,11 @@ export async function deleteBlog(blogId: string, shouldRedirect?: boolean) {
 		});
 	} catch (error) {
 		return { error: "Something went wrong" };
+	} finally {
+		revalidatePath(`/blogs`);
+		revalidatePath(`/profile/me`);
+
+		shouldRedirect && redirect("/");
 	}
-
-	revalidatePath(`/blogs`);
-	revalidatePath(`/profile/me`);
-
-	shouldRedirect && redirect("/");
+	return {message: "Blog deleted"};
 }

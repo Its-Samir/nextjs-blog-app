@@ -60,7 +60,7 @@ export async function follow(userId: string, currentUserId: string) {
 		return { error: "Something went wrong" };
 	}
 
-	revalidatePath(`/profile/${user!.username}`);
+	revalidatePath(`/profile/${user.username}`);
 
 	return { message: "Success" };
 }

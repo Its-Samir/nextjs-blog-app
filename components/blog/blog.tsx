@@ -64,7 +64,7 @@ export default function Blog({
 						{category.slice(0, 1).toUpperCase() + category.slice(1)}
 					</span>
 					<Dot size={18} />
-					<span className="bg-slate-200 text-neutral-800 rounded-sm px-2">
+					<span className="bg-slate-200 text-neutral-800 rounded-sm px-2 truncate">
 						{readingTime}
 					</span>
 				</div>
@@ -89,7 +89,7 @@ export default function Blog({
 						image={user.image as string}
 					/>
 					<Calendar size={12} absoluteStrokeWidth />
-					<span>{formatTime(createdAt)}</span>
+					<span className="truncate">{formatTime(createdAt)}</span>
 				</CardFooter>
 			</div>
 		</Card>

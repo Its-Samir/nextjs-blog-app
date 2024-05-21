@@ -18,10 +18,8 @@ export default function UserPost({
 }: UserPostProps) {
 	return (
 		<div className="flex gap-2 items-center justify-between w-full p-2 bg-slate-50">
-			<h1 className="text-2xl sm:text-lg font-sans font-bold">
-				<Link href={`/blogs/${slug}`}>
-					{title.substring(0, 15).trim()}...
-				</Link>
+			<h1 className="text-2xl sm:text-lg font-sans font-bold truncate">
+				<Link href={`/blogs/${slug}`}>{title}</Link>
 			</h1>
 			<div className="w-fit text-right ml-auto pr-2 sm:hidden">
 				<Badge className="font-sans">
@@ -34,9 +32,12 @@ export default function UserPost({
 						<Edit size={16} />
 					</Link>
 				</Button>
-				<Button variant={"destructive"} size={"sm"} onClick={deleteBlog}>
-					<Trash2 size={16} />
-				</Button>
+
+				<form action={deleteBlog}>
+					<Button type="submit" variant={"destructive"} size={"sm"}>
+						<Trash2 size={16} />
+					</Button>
+				</form>
 			</div>
 		</div>
 	);

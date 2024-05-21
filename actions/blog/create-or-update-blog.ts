@@ -58,12 +58,13 @@ export async function createOrUpdateBlog(
 				.randomBytes(6)
 				.toString("hex")}`.replaceAll(":", "-");
 
-			/* assuming reading speed 200 words per minute */
+			/* assuming reading speed 100 words per minute */
+			const words = 100;
 			const readingTime =
-				content.split(" ").length / 200 >= 1
-					? `${Math.round(content.split(" ").length / 200)} min read`
+				content.split(" ").length / words >= 1
+					? `${Math.round(content.split(" ").length / words)} min read`
 					: `${Math.round(
-							(content.split(" ").length / 200) * 60
+							(content.split(" ").length / words) * 60
 					  )} sec read`;
 
 			blog = await db.blog.create({
@@ -79,10 +80,10 @@ export async function createOrUpdateBlog(
 				},
 			});
 		}
+
+		revalidatePath(`/blogs/${blog.slug}`);
+		return { slug: blog.slug };
 	} catch (error) {
 		return { error: "Something went wrong" };
 	}
-
-	revalidatePath("/");
-	redirect(`/blogs/${blog!.slug}`);
 }

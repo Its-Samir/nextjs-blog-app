@@ -34,7 +34,6 @@ export async function deleteBlog(blogId: string, shouldRedirect?: boolean) {
 		return { error: "Something went wrong" };
 	}
 
-	revalidatePath(`/blogs`);
 	revalidatePath(`/profile/me`);
 	if (shouldRedirect) return redirect("/");
 

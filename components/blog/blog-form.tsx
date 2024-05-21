@@ -43,12 +43,14 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function BlogForm({ blog }: { blog?: Blog }) {
 	const [file, setFile] = useState<File | null>(null);
 	const [image, setImage] = useState<string>(blog ? blog.image! : "");
 	const [progress, setProgress] = useState<number>(0);
 	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
 	const form = useForm<z.infer<typeof blogFormSchema>>({
 		resolver: zodResolver(blogFormSchema),
@@ -78,6 +80,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 						});
 					} else {
 						toast.success(blog ? "Blog Updated" : "Blog Created");
+						router.push(`/blogs/${data.slug}`);
 					}
 				})
 				.catch((err) => {

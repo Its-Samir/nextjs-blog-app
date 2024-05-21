@@ -52,6 +52,6 @@ export async function likes(username: string, blogId: string) {
 		return { error: "Something went wrong" };
 	}
 
-	revalidatePath(`/blogs/${blog!.slug}`);
+	revalidatePath(`/blogs/${blog.slug}`);
 	return { message: "Success" };
 }

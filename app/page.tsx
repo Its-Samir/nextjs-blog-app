@@ -16,6 +16,8 @@ import { auth } from "@/auth";
 import Blog from "@/components/blog/blog";
 import { getUserById } from "@/lib/queries/user";
 
+export const revalidate = 10;
+
 export default async function Home() {
 	const session = await auth();
 

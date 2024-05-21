@@ -1,10 +1,10 @@
 "use client";
 
+import { useOptimistic } from "react";
 import { Heart } from "lucide-react";
 import { useSession } from "next-auth/react";
 import AuthModal from "../auth/auth-modal";
 import { likes as likeHandler } from "@/actions/blog/likes";
-import { useOptimistic } from "react";
 
 export default function Like({
 	blogId,
@@ -28,19 +28,15 @@ export default function Like({
 	} else if (session && session.data) {
 		likeButtonContent = (
 			<form
-				action={likeHandler.bind(
-					null,
-					session.data.user.username || "",
-					blogId
-				)}
-				className="flex items-center"
-				onClick={() => {
+				action={() => {
+					likeHandler(session.data.user.username || "", blogId);
 					action((prev) =>
 						new Set(hearts).has(session?.data.user.id || "")
 							? prev.filter((id) => id !== session.data.user.id!)
 							: [...prev, session.data.user.id!]
 					);
 				}}
+				className="flex items-center"
 			>
 				<button type="submit">
 					<Heart

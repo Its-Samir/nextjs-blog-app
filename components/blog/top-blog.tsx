@@ -18,7 +18,7 @@ export default async function TopBlog() {
 	return (
 		<>
 			<h1 className="text-2xl sm:text-xl text-neutral-800 font-sans font-bold mt-2">
-				Top blog
+				Top Blog
 			</h1>
 
 			<Card className="rounded-none border-0 border-b shadow-none flex gap-4 p-3 md:flex-col">
@@ -45,9 +45,7 @@ export default async function TopBlog() {
 						</span>
 					</div>
 					<CardTitle className="text-3xl md:text-xl w-[75%] md:w-auto font-sans font-bold text-ellipsis overflow-hidden whitespace-nowrap">
-						<Link href={`/blogs/${topBlog.slug}`}>
-							{topBlog.title}
-						</Link>
+						<Link href={`/blogs/${topBlog.slug}`}>{topBlog.title}</Link>
 					</CardTitle>
 					<CardContent>
 						<CardDescription className="w-[65%] md:w-auto">

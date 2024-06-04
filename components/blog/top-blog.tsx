@@ -25,10 +25,14 @@ export default async function TopBlog() {
 				<div className="w-[22rem] flex-1 md:w-[12rem]">
 					<Image
 						src={topBlog.image as string}
-						alt="img"
+						alt={topBlog.title + "-img"}
 						width={500}
 						height={100}
-						style={{ width: "auto", height: "auto" }}
+						style={{
+							width: "auto",
+							height: "auto",
+							aspectRatio: 16 / 10,
+						}}
 						priority
 					/>
 				</div>

@@ -25,8 +25,10 @@ export default function Wrapper({
 				<div>{children}</div>
 				{social ? <Socials /> : null}
 				<p className="text-slate-600 my-3 text-center">
-					{text}
-					<a href={`${url}`}> Click here.</a>
+					{text}{" "}
+					<a href={`${url}`}>
+						{url === "/register" ? "SignUp" : "SignIn"}
+					</a>
 				</p>
 			</div>
 		</Card>

@@ -48,7 +48,8 @@ export default function DeleteAccountButton({ userId }: { userId: string }) {
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action is not reversible. once you delete your account, your all data will be deleted.
+						This action is not reversible. Once you delete your account,
+						your all data will be deleted.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter className="flex-row items-center gap-3 justify-end">

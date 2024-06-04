@@ -80,7 +80,7 @@ export default async function SingleBlog({
 					{image ? (
 						<Image
 							src={image as string}
-							alt="img"
+							alt={title + "-img"}
 							width={500}
 							height={100}
 							style={{

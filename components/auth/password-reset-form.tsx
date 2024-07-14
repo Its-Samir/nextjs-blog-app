@@ -97,6 +97,7 @@ export default function PasswordResetForm({ token }: { token: string }) {
 						disabled={isPending}
 						type="submit"
 						size={"lg"}
+						aria-label="Submit form"
 					>
 						{isPending ? (
 							<BeatLoader color="white" size={8} />

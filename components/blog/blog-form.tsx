@@ -168,6 +168,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 							size={"sm"}
 							className="flex items-center gap-1 uppercase"
 							disabled={isPending}
+							aria-label="Submit form"
 						>
 							{isPending ? (
 								<BeatLoader color="white" size={8} />

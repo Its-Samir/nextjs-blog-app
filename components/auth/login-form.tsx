@@ -118,7 +118,7 @@ export default function LoginForm() {
 					/>
 
 					<span className="text-slate-700">
-						<Link href={"/reset"}>forgot password?</Link>
+						<Link href={"/reset"} aria-label="Open page for password change request">forgot password?</Link>
 					</span>
 					<FormStatus
 						message={status.message || oAuthError}
@@ -129,6 +129,7 @@ export default function LoginForm() {
 						disabled={isPending}
 						type="submit"
 						size={"lg"}
+						aria-label="Submit form"
 					>
 						{isPending ? <BeatLoader color="white" size={8} /> : "Login"}
 					</Button>

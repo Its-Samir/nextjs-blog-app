@@ -69,14 +69,14 @@ export default function Blog({
 					</span>
 				</div>
 				<CardTitle className="text-xl sm:text-base font-sans font-bold text-neutral-800">
-					<Link href={`/blogs/${slug}`}>
+					<Link href={`/blogs/${slug}`} aria-label="Read more about this blog">
 						{title.substring(0, 40).trim()}...
 					</Link>
 				</CardTitle>
 				{includeContent ? (
 					<CardContent>
 						<CardDescription className="sm:text-xs sm:hidden">
-							<Link href={`/blogs/${slug}`}>
+							<Link href={`/blogs/${slug}`} aria-label="Read more about this blog">
 								{removeMarkdownTags(content).substring(0, 80).trim()}...
 							</Link>
 						</CardDescription>

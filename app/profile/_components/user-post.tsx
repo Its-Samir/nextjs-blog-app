@@ -19,7 +19,7 @@ export default function UserPost({
 	return (
 		<div className="flex gap-2 items-center justify-between w-full p-2 bg-slate-50">
 			<h1 className="text-2xl sm:text-lg font-sans font-bold truncate">
-				<Link href={`/blogs/${slug}`}>{title}</Link>
+				<Link href={`/blogs/${slug}`} aria-label="Read more about this blog">{title}</Link>
 			</h1>
 			<div className="w-fit text-right ml-auto pr-2 sm:hidden">
 				<Badge className="font-sans">

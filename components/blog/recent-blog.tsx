@@ -27,7 +27,7 @@ export default function RecentBlog({
 				</span>
 			</div>
 			<CardTitle className="text-xl sm:text-lg">
-				<Link href={`/blogs/${slug}`}>{title}</Link>
+				<Link href={`/blogs/${slug}`} aria-label="Read more about this blog">{title}</Link>
 			</CardTitle>
 			<CardFooter className="p-0 gap-1 text-slate-500 text-sm sm:text-xs">
 				<CalendarDays size={15} />

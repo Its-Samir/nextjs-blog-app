@@ -84,8 +84,23 @@
 	font-weight: bold;
 }
 
+.editor-preview-side > h2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+.editor-preview-side > h3 {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.editor-preview-side > h4 {
+	font-size: large;
+	font-weight: bold;
+}
+
 .markdown > pre {
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 
 blockquote > * {

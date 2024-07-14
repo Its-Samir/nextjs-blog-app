@@ -20,7 +20,7 @@ export default function Like({
 	if (!session || !session.data) {
 		likeButtonContent = (
 			<AuthModal>
-				<button type="submit">
+				<button type="submit" aria-label="Like the blog">
 					<Heart size={18} fill={"white"} color="rgb(255, 15, 150)" />
 				</button>
 			</AuthModal>
@@ -38,7 +38,7 @@ export default function Like({
 				}}
 				className="flex items-center"
 			>
-				<button type="submit">
+				<button type="submit" aria-label="Like the blog">
 					<Heart
 						size={18}
 						fill={

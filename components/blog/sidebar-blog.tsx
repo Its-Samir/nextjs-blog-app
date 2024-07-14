@@ -23,7 +23,7 @@ export default function SideBarBlog({
 				</span>
 			</div>
 			<CardTitle className="text-neutral-600 text-lg sm:text-base font-sans font-bold">
-				<Link href={`/blogs/${slug}`}>
+				<Link href={`/blogs/${slug}`} aria-label="Read more about this blog">
 					{title.substring(0, 80).trim()}...
 				</Link>
 			</CardTitle>

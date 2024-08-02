@@ -105,7 +105,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				setProgress(percent);
 			},
-			(error) => alert(error),
+			(error) => alert(error.message),
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
 					setImage(url);
@@ -241,6 +241,7 @@ export default function BlogForm({ blog }: { blog?: Blog }) {
 									<FormControl>
 										<Input
 											{...field}
+											accept="image/*"
 											onChangeCapture={(e) => {
 												e.currentTarget.files![0] &&
 													setFile(e.currentTarget.files![0]);

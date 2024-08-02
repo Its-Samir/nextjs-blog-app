@@ -57,6 +57,10 @@ export default function ResetForm() {
 			text="Go back to login."
 			social={false}
 		>
+			<h1 className="bg-yellow-100 rounded-md px-4 py-2 text-yellow-600">
+				Due to some of the restrictions we cannot perform this action, cause
+				its built using the free tier.
+			</h1>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onFormSubmit)}
@@ -72,7 +76,7 @@ export default function ResetForm() {
 									<Input
 										{...field}
 										type="email"
-										placeholder="test@email.com"
+										placeholder="john@email.com"
 										disabled={isPending}
 									/>
 								</FormControl>

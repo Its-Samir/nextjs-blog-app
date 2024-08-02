@@ -85,7 +85,7 @@ export default async function NavBar() {
 			<Menus>
 				<Menu />
 			</Menus>
-			<h1 className="text-2xl text-blue-500">
+			<h1 className="text-2xl font-sans font-bold sm:text-lg">
 				<Link href={"/"}>BlogIt</Link>
 			</h1>
 			<ul className="flex item-center justify-between gap-4 md:hidden">

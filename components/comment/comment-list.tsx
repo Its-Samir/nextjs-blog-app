@@ -9,16 +9,27 @@ interface CommentListProps {
 export default async function CommentList({ getComments }: CommentListProps) {
 	const comments = await getComments();
 
-	return comments.map(async (comment) => {
-		const childComments = await getCommentsByParentId(comment.id);
+	const commentsWithChildren = await Promise.all(
+		comments.map(async (comment) => {
+			const childComments = await getCommentsByParentId(comment.id);
+			return { ...comment, childComments };
+		})
+	);
 
-		return (
-			<Suspense key={comment.id}>
-				<Comment key={comment.id} comment={comment} />
-				{childComments.map(async (c) => {
-					return <Comment key={c.id} comment={c} childComment />;
-				})}
-			</Suspense>
-		);
-	});
+	return (
+		<Suspense>
+			{commentsWithChildren.map((comment) => (
+				<div key={comment.id}>
+					<Comment key={comment.id} comment={comment} />
+					{comment.childComments.map((childComment) => (
+						<Comment
+							key={childComment.id}
+							comment={childComment}
+							childComment
+						/>
+					))}
+				</div>
+			))}
+		</Suspense>
+	);
 }

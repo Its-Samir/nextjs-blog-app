@@ -16,19 +16,21 @@ import { z } from "zod";
 import { createCommentFormSchema } from "@/lib/schemas/create-comment-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BeatLoader } from "react-spinners";
-import { CreateComment } from "@/actions/comment/create-comment";
+import { createComment } from "@/actions/comment/create-comment";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateCommentForm({
 	blogId,
 	parentId,
-	disabled = false
+	disabled = false,
 }: {
 	blogId: string;
 	parentId?: string;
 	disabled?: boolean;
 }) {
 	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
 	const form = useForm<z.infer<typeof createCommentFormSchema>>({
 		resolver: zodResolver(createCommentFormSchema),
@@ -39,7 +41,7 @@ export default function CreateCommentForm({
 
 	function onFormSubmit(values: z.infer<typeof createCommentFormSchema>) {
 		startTransition(() => {
-			CreateComment(values, blogId, parentId)
+			createComment(values, blogId, parentId)
 				.then((data) => {
 					if (data && data.error) {
 						toast.error(data.error, {
@@ -49,8 +51,9 @@ export default function CreateCommentForm({
 									: data.error,
 						});
 					} else {
-						toast.success("Comment created");
+						router.refresh();
 						form.reset();
+						toast.success(data.message);
 					}
 				})
 				.catch((err) => {

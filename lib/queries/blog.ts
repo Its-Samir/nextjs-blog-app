@@ -1,6 +1,5 @@
 import { BlogsWithUser } from "@/types";
 import { db } from "@/lib/db";
-import { Blog } from "@prisma/client";
 import { cache } from "react";
 
 export const getAllBlogs = cache((page: number): Promise<BlogsWithUser[]> => {

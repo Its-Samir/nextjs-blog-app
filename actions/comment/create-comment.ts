@@ -4,10 +4,9 @@ import { z } from "zod";
 import { createCommentFormSchema } from "@/lib/schemas/create-comment-schema";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
 import { Blog } from "@prisma/client";
 
-export async function CreateComment(
+export async function createComment(
 	values: z.infer<typeof createCommentFormSchema>,
 	blogId: string,
 	parentId?: string
@@ -68,7 +67,7 @@ export async function CreateComment(
 		return { error: "Something went wrong" };
 	}
 
-	revalidatePath(`/blogs/${blog!.slug}`);
+	// revalidatePath(`/blogs/${blog!.slug}`);
 
 	return { message: "Comment created" };
 }
